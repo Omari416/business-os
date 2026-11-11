@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rapports et analyses — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="rapports"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Rapports et analyses / Compte de résultat"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]">
+
+  <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-6">
+    <nav class="panel p-2 h-max text-sm">
+      <div class="section-label px-2 py-1.5">Financiers</div>
+      <a href="#" class="block px-2 py-1.5 rounded-md bg-[#E8EBF1] font-medium">Compte de résultat</a>
+      <a href="finances.html" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover">Balance âgée clients</a>
+      <a href="finances.html#comptes" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover">Trésorerie</a>
+      <a href="depenses.html" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover">Budget et réalisé</a>
+      <div class="section-label px-2 py-1.5 mt-2">Commerciaux</div>
+      <a href="ventes.html" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover">Ventes par segment</a>
+      <a href="crm.html" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover">Pipeline</a>
+      <div class="section-label px-2 py-1.5 mt-2">Moteur</div>
+      <a href="decisions.html#evaluees" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover">Efficacité des recommandations</a>
+      <a href="ventes.html" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover">Qualité des prévisions</a>
+    </nav>
+
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+        <div>
+          <h1 class="text-xl font-semibold tracking-tight">Compte de résultat simplifié</h1>
+          <p class="text-sm text-muted mt-0.5">Vue de gestion, non certifiée. Ne remplace pas les comptes établis par votre expert-comptable.</p>
+        </div>
+        <div class="flex gap-2">
+          <div class="seg"><button>Mensuel</button><button class="active">3 mois</button></div>
+          <button class="btn" data-toast="Export CSV généré (démo)"><i data-lucide="download"></i>CSV</button>
+        </div>
+      </div>
+
+      <section class="panel overflow-x-auto">
+        <table class="tbl min-w-[680px]">
+          <thead><tr><th>Poste</th><th class="r">Août</th><th class="r">Sept.</th><th class="r">Oct.</th><th class="r">Var. oct./sept.</th></tr></thead>
+          <tbody>
+            <tr class="font-medium"><td>Chiffre d'affaires</td><td class="r num">168 000</td><td class="r num">236 100</td><td class="r num">214 380</td><td class="r num text-danger">−9,2 %</td></tr>
+            <tr><td class="pl-6 text-muted">Coût des ventes</td><td class="r num">−102 480</td><td class="r num">−141 424</td><td class="r num">−132 487</td><td class="r num">−6,3 %</td></tr>
+            <tr class="font-medium"><td>Marge brute</td><td class="r num">65 520</td><td class="r num">94 676</td><td class="r num">81 893</td><td class="r num text-danger">−13,5 %</td></tr>
+            <tr><td class="pl-6 text-muted">Taux de marge brute</td><td class="r num">39,0 %</td><td class="r num">40,1 %</td><td class="r num">38,2 %</td><td class="r num text-danger">−1,9 pt</td></tr>
+            <tr><td class="pl-6 text-muted">Salaires et charges</td><td class="r num">−37 900</td><td class="r num">−38 150</td><td class="r num">−38 210</td><td class="r num">+0,2 %</td></tr>
+            <tr><td class="pl-6 text-muted">Sous-traitance</td><td class="r num">−9 800</td><td class="r num">−17 400</td><td class="r num">−22 120</td><td class="r num text-danger">+27,1 %</td></tr>
+            <tr><td class="pl-6 text-muted">Autres charges d'exploitation</td><td class="r num">−7 210</td><td class="r num">−7 380</td><td class="r num">−7 350</td><td class="r num">−0,4 %</td></tr>
+            <tr class="font-medium"><td>Résultat d'exploitation</td><td class="r num">10 610</td><td class="r num">31 746</td><td class="r num">14 213</td><td class="r num text-danger">−55,2 %</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="panel mt-6">
+        <div class="panel-head"><h2 class="panel-title">Lecture</h2><a href="assistant.html" class="text-xs font-medium text-accent hover:underline">Approfondir avec l'assistant →</a></div>
+        <div class="p-4 text-sm space-y-2">
+          <p>La baisse du résultat d'octobre (−17 533 €) se décompose en : baisse de marge brute liée au volume (−8 710 €), baisse du taux de marge (−4 073 €) et hausse des charges d'exploitation (−4 750 €), dont 4 720 € de sous-traitance. Les autres postes sont stables.</p>
+          <p class="text-xs text-muted">Décomposition calculée par effet volume / effet taux sur la marge, puis variation des charges. Montants en euros HT.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

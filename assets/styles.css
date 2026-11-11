@@ -1,0 +1,91 @@
+/* Business OS — composants de base. Pas de dégradés, pas d'ombres décoratives, pas de bordures gauches colorées. */
+:root { color-scheme: light; }
+html { -webkit-font-smoothing: antialiased; }
+body { background: #F6F7F9; color: #15171C; font-feature-settings: "cv11", "ss01"; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* Boutons */
+.btn { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; font-size: 13px; font-weight: 500;
+  border: 1px solid #D4D7DE; background: #fff; color: #15171C; border-radius: 6px; white-space: nowrap; transition: background .12s, border-color .12s; }
+.btn:hover { background: #F1F2F5; }
+.btn:focus-visible, .input:focus-visible, .nav-link:focus-visible { outline: 2px solid #2F55D4; outline-offset: 1px; }
+.btn-primary { background: #2F55D4; border-color: #2F55D4; color: #fff; }
+.btn-primary:hover { background: #2647B8; border-color: #2647B8; }
+.btn-ghost { border-color: transparent; background: transparent; color: #5A6070; }
+.btn-ghost:hover { background: #F1F2F5; color: #15171C; }
+.btn-danger { color: #B42318; }
+.btn-sm { height: 26px; padding: 0 8px; font-size: 12px; }
+.btn svg { width: 14px; height: 14px; }
+
+/* Surfaces */
+.panel { background: #fff; border: 1px solid #E6E8EC; border-radius: 8px; }
+.panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #E6E8EC; }
+.panel-title { font-size: 13px; font-weight: 600; }
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #8B91A0; }
+
+/* Champs */
+.input { height: 30px; padding: 0 10px; font-size: 13px; border: 1px solid #D4D7DE; border-radius: 6px; background: #fff; width: 100%; }
+textarea.input { height: auto; padding: 8px 10px; }
+.label { display: block; font-size: 12px; font-weight: 500; color: #5A6070; margin-bottom: 4px; }
+
+/* Tableaux */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th { text-align: left; font-weight: 500; font-size: 12px; color: #5A6070; padding: 8px 12px; border-bottom: 1px solid #E6E8EC; background: #FAFAFB; white-space: nowrap; }
+.tbl td { padding: 9px 12px; border-bottom: 1px solid #EEF0F3; vertical-align: middle; }
+.tbl tbody tr:last-child td { border-bottom: 0; }
+.tbl tbody tr.row-link { cursor: pointer; }
+.tbl tbody tr:hover td { background: #FAFAFB; }
+.tbl .r { text-align: right; }
+.tbl .r, .tbl .num, .tbl td.font-mono { white-space: nowrap; }
+
+/* Statuts : texte + point, jamais de gros badges colorés */
+.status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #5A6070; white-space: nowrap; }
+.status::before { content: ""; width: 6px; height: 6px; border-radius: 99px; background: currentColor; opacity: .9; }
+.status.s-neutral::before { background: #8B91A0; }
+.status.s-accent { color: #1E3A9A; } .status.s-accent::before { background: #2F55D4; }
+.status.s-ok { color: #067647; }
+.status.s-warn { color: #A15C07; }
+.status.s-danger { color: #B42318; }
+.tag { display: inline-flex; align-items: center; height: 20px; padding: 0 6px; font-size: 11px; font-weight: 500; color: #5A6070; border: 1px solid #E6E8EC; border-radius: 4px; background: #fff; }
+
+/* Navigation */
+.nav-link { display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 8px; border-radius: 6px; font-size: 13px; color: #5A6070; }
+.nav-link:hover { background: #ECEEF2; color: #15171C; }
+.nav-link.active { background: #E8EBF1; color: #15171C; font-weight: 500; }
+.nav-link svg { width: 16px; height: 16px; stroke-width: 1.75; }
+
+/* Onglets */
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid #E6E8EC; overflow-x: auto; }
+.tab { height: 36px; padding: 0 10px; font-size: 13px; color: #5A6070; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+.tab:hover { color: #15171C; }
+.tab.active { color: #15171C; border-color: #15171C; font-weight: 500; }
+.seg { display: inline-flex; border: 1px solid #D4D7DE; border-radius: 6px; overflow: hidden; background: #fff; }
+.seg button { height: 28px; padding: 0 10px; font-size: 12px; color: #5A6070; white-space: nowrap; }
+.panel-head { flex-wrap: wrap; }
+.panel-head > a { white-space: nowrap; }
+.seg button + button { border-left: 1px solid #E6E8EC; }
+.seg button.active { background: #F1F2F5; color: #15171C; font-weight: 500; }
+
+/* Barres et jauges */
+.bar { height: 6px; background: #EEF0F3; border-radius: 99px; overflow: hidden; }
+.bar > span { display: block; height: 100%; background: #2F55D4; border-radius: 99px; }
+
+/* Interrupteur */
+.switch { position: relative; width: 28px; height: 16px; border-radius: 99px; background: #D4D7DE; transition: background .15s; flex: none; }
+.switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 99px; background: #fff; transition: transform .15s; }
+.switch[aria-checked="true"] { background: #2F55D4; }
+.switch[aria-checked="true"]::after { transform: translateX(12px); }
+
+/* Kbd */
+kbd { white-space: nowrap; font-family: "JetBrains Mono", monospace; font-size: 10px; padding: 1px 4px; border: 1px solid #D4D7DE; border-radius: 3px; color: #8B91A0; background: #fff; }
+
+/* Toast */
+#toast { position: fixed; bottom: 16px; left: 50%; transform: translate(-50%, 8px); opacity: 0; pointer-events: none; transition: all .18s;
+  background: #15171C; color: #fff; font-size: 13px; padding: 8px 12px; border-radius: 6px; z-index: 60; max-width: calc(100vw - 32px); }
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* Graphiques SVG */
+.chart-grid line { stroke: #EEF0F3; }
+.chart-axis text { fill: #8B91A0; font-size: 10px; font-family: Inter, sans-serif; }
+
+[hidden] { display: none !important; }

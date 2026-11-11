@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paramètres — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+<style>.perm td { text-align:center; } .perm td:first-child { text-align:left; } .perm input { accent-color:#2F55D4; }</style>
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="parametres"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Paramètres"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1200px]" data-tabs-scope>
+
+  <h1 class="text-xl font-semibold tracking-tight mb-5">Paramètres</h1>
+
+  <div class="tabs mb-6">
+    <button class="tab active" data-tab="organisation">Organisation</button>
+    <button class="tab" data-tab="membres">Membres</button>
+    <button class="tab" data-tab="roles">Rôles et permissions</button>
+    <button class="tab" data-tab="seuils">Seuils d'alerte</button>
+    <button class="tab" data-tab="ia">Assistant IA</button>
+    <button class="tab" data-tab="audit">Journal d'audit</button>
+  </div>
+
+  <!-- Organisation -->
+  <section data-panel="organisation" class="panel">
+    <form class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl" onsubmit="event.preventDefault(); bosToast('Paramètres enregistrés (démo)')">
+      <div><label class="label" for="o-name">Raison sociale</label><input class="input" id="o-name" value="Atelier Moreau SAS"></div>
+      <div><label class="label" for="o-siren">SIREN</label><input class="input" id="o-siren" value="901 234 567"></div>
+      <div><label class="label" for="o-cur">Devise de référence</label><select class="input" id="o-cur"><option>EUR — Euro</option><option>CHF — Franc suisse</option></select></div>
+      <div><label class="label" for="o-fy">Début d'exercice</label><select class="input" id="o-fy"><option>1er janvier</option><option>1er juillet</option></select></div>
+      <div><label class="label" for="o-tz">Fuseau horaire</label><select class="input" id="o-tz"><option>Europe/Paris</option></select></div>
+      <div><label class="label" for="o-site">Établissements</label><input class="input" id="o-site" value="Lyon 7e (siège), Vénissieux (dépôt)"></div>
+      <div class="md:col-span-2 flex justify-end pt-2"><button class="btn btn-primary" type="submit">Enregistrer</button></div>
+    </form>
+  </section>
+
+  <!-- Membres -->
+  <section data-panel="membres" hidden>
+    <div class="flex justify-end mb-3"><button class="btn btn-primary" data-toast="Invitation envoyée (démo)"><i data-lucide="user-plus"></i>Inviter</button></div>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[720px]">
+        <thead><tr><th>Membre</th><th>Rôle</th><th>Département</th><th>Dernière connexion</th><th>2FA</th></tr></thead>
+        <tbody>
+          <tr><td><div class="font-medium">Claire Moreau</div><div class="text-xs text-muted">claire@atelier-moreau.fr</div></td><td>Propriétaire</td><td>Direction</td><td>Aujourd'hui</td><td class="text-ok">Activée</td></tr>
+          <tr><td><div class="font-medium">Nadia Roux</div><div class="text-xs text-muted">nadia@atelier-moreau.fr</div></td><td>Responsable financier</td><td>Administration</td><td>Aujourd'hui</td><td class="text-ok">Activée</td></tr>
+          <tr><td><div class="font-medium">Julien Arnaud</div><div class="text-xs text-muted">julien@atelier-moreau.fr</div></td><td>Responsable commercial</td><td>Commercial</td><td>Hier</td><td class="text-ok">Activée</td></tr>
+          <tr><td><div class="font-medium">Karim Bensaïd</div><div class="text-xs text-muted">karim@atelier-moreau.fr</div></td><td>Responsable des stocks</td><td>Production</td><td>Hier</td><td class="text-warn">Non activée</td></tr>
+          <tr><td><div class="font-medium">Inès Garcia</div><div class="text-xs text-muted">ines@atelier-moreau.fr</div></td><td>Employé</td><td>Commercial</td><td>8 nov.</td><td class="text-ok">Activée</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Rôles -->
+  <section data-panel="roles" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl perm min-w-[820px]">
+        <thead><tr><th>Permission</th><th>Propriétaire</th><th>Admin</th><th>Resp. financier</th><th>Resp. commercial</th><th>Resp. RH</th><th>Resp. stocks</th><th>Employé</th></tr></thead>
+        <tbody>
+          <tr><td>finance.invoice.read</td><td><input type="checkbox" checked disabled></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+          <tr><td>finance.invoice.write</td><td><input type="checkbox" checked disabled></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+          <tr><td>finance.dunning.approve</td><td><input type="checkbox" checked disabled></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+          <tr><td>crm.customer.write</td><td><input type="checkbox" checked disabled></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td></tr>
+          <tr><td>stock.purchase_order.approve</td><td><input type="checkbox" checked disabled></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td></tr>
+          <tr><td>hr.employee.read_sensitive</td><td><input type="checkbox" checked disabled></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+          <tr><td>decision.approve</td><td><input type="checkbox" checked disabled></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox"></td></tr>
+          <tr><td>assistant.use</td><td><input type="checkbox" checked disabled></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flex justify-between items-center mt-3 gap-3 flex-wrap">
+      <p class="text-xs text-muted">Les outils de l'assistant appliquent exactement ces permissions, avec les droits de l'utilisateur qui pose la question.</p>
+      <button class="btn btn-primary" data-toast="Permissions enregistrées et journalisées (démo)">Enregistrer</button>
+    </div>
+  </section>
+
+  <!-- Seuils -->
+  <section data-panel="seuils" hidden class="panel">
+    <form class="p-5 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 max-w-3xl" onsubmit="event.preventDefault(); bosToast('Seuils enregistrés — appliqués au prochain calcul (démo)')">
+      <div><label class="label" for="s1">Trésorerie minimale</label><input class="input num" id="s1" value="150 000 €"></div>
+      <div><label class="label" for="s2">Retard de facture déclenchant une relance</label><input class="input num" id="s2" value="7 jours"></div>
+      <div><label class="label" for="s3">Dépassement de budget par catégorie</label><input class="input num" id="s3" value="10 %"></div>
+      <div><label class="label" for="s4">Dépense unitaire nécessitant validation</label><input class="input num" id="s4" value="1 500 €"></div>
+      <div><label class="label" for="s5">Marge de sécurité stock</label><input class="input num" id="s5" value="3 jours"></div>
+      <div><label class="label" for="s6">Inactivité d'une opportunité</label><input class="input num" id="s6" value="14 jours"></div>
+      <div><label class="label" for="s7">Expiration d'une recommandation</label><input class="input num" id="s7" value="14 jours"></div>
+      <div><label class="label" for="s8">Écart de prix d'achat signalé</label><input class="input num" id="s8" value="5 %"></div>
+      <div class="md:col-span-2 flex justify-end pt-2"><button class="btn btn-primary" type="submit">Enregistrer</button></div>
+    </form>
+  </section>
+
+  <!-- IA -->
+  <section data-panel="ia" hidden class="space-y-6">
+    <div class="panel">
+      <div class="panel-head"><h2 class="panel-title">Fournisseur de modèle</h2><span class="status s-warn">Non configuré</span></div>
+      <form class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl" onsubmit="event.preventDefault(); bosToast('Prototype statique : aucune clé n\'est stockée')">
+        <div><label class="label" for="ai-p">Fournisseur</label><select class="input" id="ai-p"><option>Anthropic</option><option>Autre (compatible)</option></select></div>
+        <div><label class="label" for="ai-m">Modèle</label><input class="input font-mono" id="ai-m" value="claude-sonnet-5-5"></div>
+        <div class="md:col-span-2"><label class="label" for="ai-k">Clé API</label><input class="input font-mono" id="ai-k" type="password" placeholder="Stockée côté serveur, jamais exposée au navigateur"></div>
+        <div><label class="label" for="ai-q">Limite mensuelle de requêtes</label><input class="input num" id="ai-q" value="2 000"></div>
+        <div><label class="label" for="ai-t">Délai maximal par appel d'outil</label><input class="input num" id="ai-t" value="10 s"></div>
+        <div class="md:col-span-2 flex justify-end"><button class="btn btn-primary" type="submit">Enregistrer</button></div>
+      </form>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2 class="panel-title">Outils exposés à l'assistant</h2></div>
+      <ul class="divide-y divide-line text-sm">
+        <li class="px-4 py-3 flex items-center gap-4"><span class="font-mono text-xs flex-1">sales.* · finance.* · crm.* · stock.* (lecture)</span><span class="text-muted text-xs">Sans approbation</span><button class="switch" role="switch" aria-checked="true" data-label="Outils de lecture"></button></li>
+        <li class="px-4 py-3 flex items-center gap-4"><span class="font-mono text-xs flex-1">actions.prepareTask · actions.prepareDunning · actions.preparePurchaseOrder</span><span class="text-muted text-xs">Brouillon + approbation</span><button class="switch" role="switch" aria-checked="true" data-label="Outils de préparation"></button></li>
+        <li class="px-4 py-3 flex items-center gap-4"><span class="font-mono text-xs flex-1">hr.* (données nominatives)</span><span class="text-muted text-xs">Désactivé par défaut</span><button class="switch" role="switch" aria-checked="false" data-label="Outils RH"></button></li>
+      </ul>
+      <p class="px-4 py-3 text-xs text-muted border-t border-line">Aucun outil n'exécute de SQL ni de code généré. Les contenus récupérés (e-mails, documents, notes clients) sont traités comme des données, jamais comme des instructions.</p>
+    </div>
+  </section>
+
+  <!-- Audit -->
+  <section data-panel="audit" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[900px]">
+        <thead><tr><th>Horodatage</th><th>Acteur</th><th>Action</th><th>Objet</th><th>Origine</th><th>IP</th></tr></thead>
+        <tbody>
+          <tr><td class="font-mono text-xs">2026-11-11 07:01:12</td><td>Système</td><td>recommendation.create</td><td class="font-mono text-xs">REC-0142</td><td>Moteur</td><td class="text-muted">—</td></tr>
+          <tr><td class="font-mono text-xs">2026-11-11 07:00:58</td><td>Assistant (C. Moreau)</td><td>tool.prepareDunning</td><td class="font-mono text-xs">4 factures</td><td>Assistant</td><td class="text-muted">—</td></tr>
+          <tr><td class="font-mono text-xs">2026-11-10 18:42:03</td><td>Nadia Roux</td><td>invoice.payment.create</td><td class="font-mono text-xs">ACP-CMD-1184</td><td>Web</td><td class="font-mono text-xs text-muted">88.12.•.•</td></tr>
+          <tr><td class="font-mono text-xs">2026-11-10 16:22:44</td><td>Système</td><td>automation.skip_duplicate</td><td class="font-mono text-xs">EXE-8836</td><td>Automatisation</td><td class="text-muted">—</td></tr>
+          <tr><td class="font-mono text-xs">2026-11-09 11:05:30</td><td>Claire Moreau</td><td>role.permission.update</td><td class="font-mono text-xs">Resp. commercial</td><td>Web</td><td class="font-mono text-xs text-muted">88.12.•.•</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

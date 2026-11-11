@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finances — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="finances"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Finances"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]" data-tabs-scope>
+
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+    <div>
+      <h1 class="text-xl font-semibold tracking-tight">Finances</h1>
+      <p class="text-sm text-muted mt-0.5">Factures clients, paiements et comptes. Montants en EUR.</p>
+    </div>
+    <div class="flex gap-2">
+      <button class="btn" data-toast="Saisie d'un paiement (démo)"><i data-lucide="banknote"></i>Enregistrer un paiement</button>
+      <button class="btn btn-primary" data-toast="Nouvelle facture (démo)"><i data-lucide="plus"></i>Facture</button>
+    </div>
+  </div>
+
+  <div class="tabs mb-4">
+    <button class="tab active" data-tab="factures">Factures clients</button>
+    <button class="tab" data-tab="paiements">Paiements</button>
+    <button class="tab" data-tab="comptes">Comptes</button>
+    <button class="tab" data-tab="fournisseurs">Dettes fournisseurs</button>
+  </div>
+
+  <section data-panel="factures">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+      <div class="seg">
+        <button>Toutes <span class="num text-subtle">42</span></button><button class="active">Échues <span class="num text-subtle">9</span></button><button>À échoir <span class="num text-subtle">14</span></button><button>Payées <span class="num text-subtle">19</span></button>
+      </div>
+      <label class="flex items-center gap-2 h-[30px] w-64 px-2.5 border border-line-strong rounded-md bg-surface text-subtle">
+        <i data-lucide="search" class="w-3.5 h-3.5"></i><input class="flex-1 bg-transparent outline-none text-[13px] text-ink" placeholder="N°, client…" data-filter="#t-inv">
+      </label>
+    </div>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[960px]" id="t-inv">
+        <thead><tr><th>Facture</th><th>Client</th><th>Émise</th><th>Échéance</th><th class="r">Retard</th><th class="r">Montant TTC</th><th class="r">Reste dû</th><th>Relances</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0298</td><td>Bistro Nadal</td><td>03/07</td><td>02/08</td><td class="r num text-danger">101 j</td><td class="r num">4 450,00</td><td class="r num">4 450,00</td><td>2</td><td><span class="status s-danger">Échue</span></td></tr>
+          <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0322</td><td>Café des Arts</td><td>23/07</td><td>22/08</td><td class="r num text-danger">81 j</td><td class="r num">8 140,00</td><td class="r num">8 140,00</td><td>2</td><td><span class="status s-danger">Échue</span></td></tr>
+          <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0351</td><td>Hôtel Les Tilleuls</td><td>20/08</td><td>19/09</td><td class="r num">53 j</td><td class="r num">9 870,00</td><td class="r num">9 870,00</td><td>1</td><td><span class="status s-danger">Échue</span></td></tr>
+          <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0356</td><td>Boulangerie Ferrand</td><td>29/08</td><td>28/09</td><td class="r num">44 j</td><td class="r num">4 450,00</td><td class="r num">4 450,00</td><td>1</td><td><span class="status s-danger">Échue</span></td></tr>
+          <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0371</td><td>Brasserie Lefèvre</td><td>15/09</td><td>15/10</td><td class="r num">27 j</td><td class="r num">7 920,00</td><td class="r num">7 920,00</td><td>1</td><td><span class="status s-danger">Échue</span></td></tr>
+          <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0374</td><td>Restaurant Kintaro</td><td>20/09</td><td>20/10</td><td class="r num">22 j</td><td class="r num">3 360,00</td><td class="r num">3 360,00</td><td>0</td><td><span class="status s-danger">Échue</span></td></tr>
+          <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0379</td><td>Le Comptoir Saint-Paul</td><td>24/09</td><td>24/10</td><td class="r num">18 j</td><td class="r num">5 280,00</td><td class="r num">5 280,00</td><td>0</td><td><span class="status s-danger">Échue</span></td></tr>
+          <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0383</td><td>Cave Marceau</td><td>30/09</td><td>30/10</td><td class="r num">12 j</td><td class="r num">2 150,00</td><td class="r num">2 150,00</td><td>0</td><td><span class="status s-danger">Échue</span></td></tr>
+          <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0386</td><td>Maison Dubreuil</td><td>04/10</td><td>03/11</td><td class="r num">8 j</td><td class="r num">2 740,00</td><td class="r num">2 740,00</td><td>0</td><td><span class="status s-danger">Échue</span></td></tr>
+        </tbody>
+        <tfoot><tr class="font-medium"><td colspan="5" class="px-3 py-2.5 border-t border-line">Total échu</td><td class="r num px-3 py-2.5 border-t border-line">48 360,00</td><td class="r num px-3 py-2.5 border-t border-line">48 360,00</td><td colspan="2" class="border-t border-line"></td></tr></tfoot>
+      </table>
+    </div>
+    <div class="panel mt-4 p-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="text-sm"><span class="font-medium">Une recommandation couvre ces 9 factures.</span> <span class="text-muted">Relances préparées, en attente d'approbation.</span></div>
+      <a href="decision.html" class="btn btn-sm">Ouvrir REC-0142</a>
+    </div>
+  </section>
+
+  <section data-panel="paiements" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[760px]">
+        <thead><tr><th>Date</th><th>Payeur</th><th>Moyen</th><th>Rapproché avec</th><th class="r">Montant</th></tr></thead>
+        <tbody>
+          <tr><td>10/11</td><td>Hôtel Lumen</td><td>Virement</td><td class="font-mono text-xs">ACP-CMD-1184</td><td class="r num">14 580,00 €</td></tr>
+          <tr><td>07/11</td><td>Groupe Vatel</td><td>Virement</td><td class="font-mono text-xs">FAC-2026-0362</td><td class="r num">6 720,00 €</td></tr>
+          <tr><td>05/11</td><td>Résidence du Parc</td><td>Chèque</td><td class="font-mono text-xs">FAC-2026-0344</td><td class="r num">3 980,00 €</td></tr>
+          <tr><td>04/11</td><td>Inconnu · réf. « MOREAU 0367 »</td><td>Virement</td><td><button class="btn btn-sm" data-toast="Suggestion : FAC-2026-0367 (montant identique) — à confirmer">Rapprocher</button></td><td class="r num">2 310,00 €</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section data-panel="comptes" hidden>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="panel p-4"><div class="text-xs text-muted">Compte courant · Banque Populaire</div><div class="num text-lg font-semibold mt-1">148 920,40 €</div><div class="text-2xs text-subtle mt-1">FR76 •••• 4021 · rapproché le 10/11</div></div>
+      <div class="panel p-4"><div class="text-xs text-muted">Compte épargne · Banque Populaire</div><div class="num text-lg font-semibold mt-1">30 000,00 €</div><div class="text-2xs text-subtle mt-1">Disponible sous 48 h</div></div>
+      <div class="panel p-4"><div class="text-xs text-muted">Caisse</div><div class="num text-lg font-semibold mt-1">3 479,60 €</div><div class="text-2xs text-subtle mt-1">Dernier comptage le 31/10</div></div>
+    </div>
+    <p class="text-sm mt-4">Trésorerie disponible totale : <span class="num font-semibold">182 400,00 €</span></p>
+  </section>
+
+  <section data-panel="fournisseurs" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[700px]">
+        <thead><tr><th>Facture</th><th>Fournisseur</th><th>Échéance</th><th class="r">Montant TTC</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td class="font-mono text-xs">FF-2026-0390</td><td>Bois &amp; Dérivés</td><td>20/11</td><td class="r num">12 640,00 €</td><td><span class="status s-neutral">À payer</span></td></tr>
+          <tr><td class="font-mono text-xs">FF-2026-0388</td><td>Métal Concept</td><td>25/11</td><td class="r num">1 860,00 €</td><td><span class="status s-warn">Bloquée · doublon possible</span></td></tr>
+          <tr><td class="font-mono text-xs">FF-2026-0381</td><td>Métal Concept</td><td>23/11</td><td class="r num">1 860,00 €</td><td><span class="status s-neutral">À payer</span></td></tr>
+          <tr><td class="font-mono text-xs">FF-2026-0377</td><td>Quincaillerie Blum France</td><td>30/11</td><td class="r num">4 920,00 €</td><td><span class="status s-neutral">À payer</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

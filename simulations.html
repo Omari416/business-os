@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simulations — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  input[type=range] { width:100%; accent-color:#2F55D4; height: 18px; }
+  .preset.active { background:#E8EBF1; color:#15171C; font-weight:500; }
+</style>
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="simulations"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Simulations"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]">
+
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+    <div>
+      <h1 class="text-xl font-semibold tracking-tight">Simulateur de décisions</h1>
+      <p class="text-sm text-muted mt-0.5">Base : octobre 2026 (mensuel). Calcul déterministe, en centimes entiers, réalisé localement.</p>
+    </div>
+    <div class="flex gap-2">
+      <button class="btn" id="reset"><i data-lucide="rotate-ccw"></i>Réinitialiser</button>
+      <button class="btn btn-primary" id="save"><i data-lucide="save"></i>Enregistrer le scénario</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] xl:grid-cols-[220px_340px_1fr] gap-6">
+    <!-- Scénarios -->
+    <nav class="panel p-2 h-max">
+      <div class="section-label px-2 py-1.5">Scénarios types</div>
+      <div id="presets" class="space-y-px text-sm"></div>
+    </nav>
+
+    <!-- Hypothèses -->
+    <section class="panel h-max">
+      <div class="panel-head"><h2 class="panel-title">Hypothèses</h2></div>
+      <div class="p-4 space-y-4 text-sm" id="inputs"></div>
+    </section>
+
+    <!-- Résultats -->
+    <div class="space-y-6 lg:col-span-2 xl:col-span-1 min-w-0">
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title" id="scenario-name">Situation actuelle</h2><span class="text-xs text-muted">Valeurs mensuelles HT</span></div>
+        <div class="overflow-x-auto">
+          <table class="tbl" id="results">
+            <thead><tr><th>Indicateur</th><th class="r">Actuel</th><th class="r">Simulé</th><th class="r">Écart</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Risques et points d'attention</h2></div>
+        <ul class="p-4 text-sm space-y-2" id="risks"></ul>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Comparaison des scénarios enregistrés</h2></div>
+        <div class="overflow-x-auto">
+          <table class="tbl min-w-[620px]" id="compare">
+            <thead><tr><th>Scénario</th><th class="r">CA</th><th class="r">Marge brute</th><th class="r">Résultat</th><th class="r">Trésorerie J+90</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="text-xs text-muted">Hypothèses du modèle : coût des ventes proportionnel aux volumes ; charges d'exploitation fixes hors variations saisies ; coût chargé d'un recrutement 3 900 €/mois ; trésorerie J+90 = trésorerie actuelle + 3 × résultat mensuel − investissement, sans décalage d'encaissement. L'assistant peut expliquer ces résultats mais ne les calcule pas.</p>
+    </div>
+  </div>
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  // Base en centimes
+  const BASE = { revenue: 21438000, grossRatePct: 38.2, opex: 6768000, payroll: 3821000, cash: 18240000, threshold: 15000000 };
+  const HIRE_COST = 390000; // 3 900 € / mois
+  const FIELDS = [
+    ['price', 'Variation des prix', '%', -15, 15, 0.5],
+    ['volume', 'Variation des volumes', '%', -30, 30, 1],
+    ['lostClient', 'CA mensuel perdu (client)', '€', 0, 30000, 500],
+    ['supplier', 'Variation coûts fournisseurs', '%', -10, 20, 0.5],
+    ['opex', 'Variation charges hors salaires', '%', -20, 30, 1],
+    ['payroll', 'Variation masse salariale', '%', -10, 15, 0.5],
+    ['hires', 'Recrutements', 'pers.', 0, 5, 1],
+    ['invest', 'Investissement ponctuel', '€', 0, 150000, 5000],
+  ];
+  const ZERO = { price: 0, volume: 0, lostClient: 0, supplier: 0, opex: 0, payroll: 0, hires: 0, invest: 0 };
+  const PRESETS = [
+    ['Situation actuelle', {}],
+    ['Augmentation des prix', { price: 4, volume: -2 }],
+    ['Réduction des dépenses', { opex: -8 }],
+    ['Recrutement', { hires: 1, volume: 3 }],
+    ['Investissement machine', { invest: 45000, volume: 4 }],
+    ['Hausse des salaires', { payroll: 3 }],
+    ['Perte d\'un client important', { lostClient: 10380 }],
+    ['Baisse des ventes', { volume: -10 }],
+    ['Hausse coûts fournisseurs', { supplier: 7 }],
+    ['Nouvel établissement', { volume: 15, opex: 12, hires: 2, invest: 80000 }],
+  ];
+
+  const pct = (cents, p) => Math.round(cents * p / 100);
+  function compute(h) {
+    const cogsBase = BASE.revenue - pct(BASE.revenue, BASE.grossRatePct);
+    const lost = Math.round(h.lostClient * 100);
+    const volRevenue = BASE.revenue + pct(BASE.revenue, h.volume) - lost;
+    const revenue = volRevenue + pct(volRevenue, h.price);
+    const lostCogs = Math.round(lost * cogsBase / BASE.revenue);
+    const volCogs = cogsBase + pct(cogsBase, h.volume) - lostCogs;
+    const cogs = volCogs + pct(volCogs, h.supplier);
+    const gross = revenue - cogs;
+    const otherOpex = BASE.opex - BASE.payroll;
+    const opex = otherOpex + pct(otherOpex, h.opex) + BASE.payroll + pct(BASE.payroll, h.payroll) + h.hires * HIRE_COST;
+    const result = gross - opex;
+    const cash90 = BASE.cash + 3 * result - Math.round(h.invest * 100);
+    const breakEven = gross > 0 ? Math.round(opex * revenue / gross) : null;
+    return { revenue, gross, grossRate: revenue ? gross / revenue * 100 : 0, opex, result, cash90, breakEven };
+  }
+
+  const eur = c => (c / 100).toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' €';
+  const signed = (c, unit) => { const s = c > 0 ? '+' : c < 0 ? '−' : ''; return s + (unit === '%' ? Math.abs(c).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' pt' : eur(Math.abs(c))); };
+
+  let state = { ...ZERO }, name = 'Situation actuelle';
+  const inputs = document.getElementById('inputs');
+  inputs.innerHTML = FIELDS.map(([k, label, unit, min, max, step]) => `
+    <div>
+      <div class="flex justify-between mb-1"><label for="f-${k}" class="text-muted">${label}</label><span class="num font-medium" id="v-${k}"></span></div>
+      <input type="range" id="f-${k}" min="${min}" max="${max}" step="${step}" value="0" data-k="${k}" data-unit="${unit}">
+    </div>`).join('');
+  const base = compute(ZERO);
+
+  function render() {
+    FIELDS.forEach(([k, , unit]) => {
+      document.getElementById('f-' + k).value = state[k];
+      const v = state[k];
+      document.getElementById('v-' + k).textContent = unit === '€' ? eur(v * 100) : (v > 0 && unit === '%' ? '+' : '') + v.toLocaleString('fr-FR') + ' ' + unit;
+    });
+    const r = compute(state);
+    const rows = [
+      ['Chiffre d\'affaires', base.revenue, r.revenue],
+      ['Marge brute', base.gross, r.gross],
+      ['Taux de marge brute', base.grossRate, r.grossRate, '%'],
+      ['Charges d\'exploitation', base.opex, r.opex, null, true],
+      ['Résultat d\'exploitation', base.result, r.result],
+      ['Trésorerie J+90', base.cash90, r.cash90],
+      ['Seuil de rentabilité (CA)', base.breakEven, r.breakEven, null, true],
+    ];
+    document.querySelector('#results tbody').innerHTML = rows.map(([l, a, b, unit, inverse]) => {
+      const d = (b ?? 0) - (a ?? 0);
+      const good = inverse ? d < 0 : d > 0;
+      const cls = Math.abs(d) < (unit === '%' ? 0.05 : 50) ? 'text-subtle' : good ? 'text-ok' : 'text-danger';
+      const f = x => x == null ? 'n/a' : unit === '%' ? x.toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' %' : eur(x);
+      return `<tr><td>${l}</td><td class="r num text-muted">${f(a)}</td><td class="r num font-medium">${f(b)}</td><td class="r num ${cls}">${signed(d, unit)}</td></tr>`;
+    }).join('');
+
+    const risks = [];
+    if (r.result < 0) risks.push(['s-danger', `Résultat d'exploitation négatif (${eur(r.result)} par mois).`]);
+    if (r.cash90 < BASE.threshold) risks.push(['s-danger', `Trésorerie J+90 sous le seuil minimal de ${eur(BASE.threshold)}.`]);
+    if (state.price > 0 && state.volume > -state.price) risks.push(['s-warn', 'La perte de volume supposée est faible au regard de la hausse de prix : 2 opportunités ont été perdues pour motif « prix » en septembre.']);
+    if (Math.abs(state.volume) >= 10) risks.push(['s-warn', 'Variation de volume importante : hypothèse à confirmer avec le pipeline commercial.']);
+    if (state.invest > 0) risks.push(['s-neutral', `Investissement décaissé immédiatement (${eur(state.invest * 100)}) ; amortissement non modélisé.`]);
+    if (state.hires > 0) risks.push(['s-neutral', `Coût de ${state.hires} recrutement(s) : ${eur(state.hires * HIRE_COST)} par mois, dès le premier mois.`]);
+    if (!risks.length) risks.push(['s-ok', 'Aucun seuil franchi avec ces hypothèses.']);
+    document.getElementById('risks').innerHTML = risks.map(([c, t]) => `<li class="flex gap-2"><span class="status ${c} mt-0.5"></span><span>${t}</span></li>`).join('');
+    document.getElementById('scenario-name').textContent = name;
+  }
+
+  const presetsEl = document.getElementById('presets');
+  presetsEl.innerHTML = PRESETS.map(([n], i) => `<button class="preset w-full text-left px-2 py-1.5 rounded-md text-muted hover:bg-hover ${i === 0 ? 'active' : ''}" data-i="${i}">${n}</button>`).join('');
+  presetsEl.addEventListener('click', e => {
+    const b = e.target.closest('[data-i]'); if (!b) return;
+    presetsEl.querySelectorAll('.preset').forEach(x => x.classList.toggle('active', x === b));
+    const [n, h] = PRESETS[b.dataset.i];
+    state = { ...ZERO, ...h }; name = n; render();
+  });
+  inputs.addEventListener('input', e => {
+    const k = e.target.dataset.k; if (!k) return;
+    state[k] = Number(e.target.value);
+    if (!name.endsWith('(modifié)')) name = name + ' (modifié)';
+    render();
+  });
+  document.getElementById('reset').addEventListener('click', () => { state = { ...ZERO }; name = 'Situation actuelle'; presetsEl.querySelector('[data-i="0"]').click(); });
+
+  const saved = [['Situation actuelle', { ...ZERO }], ['Augmentation des prix', { ...ZERO, ...PRESETS[1][1] }], ['Perte d\'un client important', { ...ZERO, ...PRESETS[6][1] }]];
+  function renderCompare() {
+    document.querySelector('#compare tbody').innerHTML = saved.map(([n, h], i) => {
+      const r = compute(h);
+      return `<tr><td class="font-medium">${n.replace(/[<>]/g, '')}</td><td class="r num">${eur(r.revenue)}</td><td class="r num">${r.grossRate.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} %</td>
+        <td class="r num ${r.result < 0 ? 'text-danger' : ''}">${eur(r.result)}</td><td class="r num ${r.cash90 < BASE.threshold ? 'text-danger' : ''}">${eur(r.cash90)}</td>
+        <td class="r">${i ? `<button class="btn btn-sm btn-ghost" data-del="${i}" aria-label="Retirer">Retirer</button>` : ''}</td></tr>`;
+    }).join('');
+  }
+  document.getElementById('compare').addEventListener('click', e => { const b = e.target.closest('[data-del]'); if (b) { saved.splice(Number(b.dataset.del), 1); renderCompare(); } });
+  document.getElementById('save').addEventListener('click', () => { saved.push([name, { ...state }]); renderCompare(); bosToast('Scénario ajouté à la comparaison (non persisté dans cette démo)'); });
+
+  render(); renderCompare();
+})();
+</script>
+</body>
+</html>

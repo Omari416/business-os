@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FAC-2026-0371 — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="finances"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Finances / Factures / FAC-2026-0371"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]">
+
+  <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+    <div>
+      <div class="flex items-center gap-3"><h1 class="text-xl font-semibold tracking-tight font-mono">FAC-2026-0371</h1><span class="status s-danger">Échue depuis 27 jours</span></div>
+      <p class="text-sm text-muted mt-1"><a href="client.html" class="hover:underline text-ink">Brasserie Lefèvre</a> · Émise le 15/09/2026 · Échéance 15/10/2026 · 30 jours net</p>
+    </div>
+    <div class="flex gap-2">
+      <button class="btn" data-toast="PDF téléchargé (démo)"><i data-lucide="download"></i>PDF</button>
+      <a href="decision.html" class="btn"><i data-lucide="mail"></i>Relance (REC-0142)</a>
+      <button class="btn btn-primary" data-toast="Saisie d'un paiement pour FAC-2026-0371 (démo)"><i data-lucide="banknote"></i>Enregistrer un paiement</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6">
+    <section class="panel p-6 md:p-8">
+      <div class="flex flex-wrap justify-between gap-6 text-sm">
+        <div><div class="font-semibold">Atelier Moreau SAS</div><div class="text-muted">14 rue des Tanneurs<br>69007 Lyon</div></div>
+        <div class="text-right"><div class="text-muted">Facturé à</div><div class="font-semibold">Brasserie Lefèvre</div><div class="text-muted">8 place des Célestins<br>69002 Lyon</div></div>
+      </div>
+      <div class="overflow-x-auto mt-8">
+        <table class="tbl min-w-[560px]">
+          <thead><tr><th>Désignation</th><th class="r">Qté</th><th class="r">PU HT</th><th class="r">TVA</th><th class="r">Total HT</th></tr></thead>
+          <tbody>
+            <tr><td>Banquette sur mesure, structure hêtre, assise skaï</td><td class="r num">4</td><td class="r num">1 200,00</td><td class="r num">20 %</td><td class="r num">4 800,00</td></tr>
+            <tr><td>Plateau de table chêne massif 70 × 70</td><td class="r num">6</td><td class="r num">220,00</td><td class="r num">20 %</td><td class="r num">1 320,00</td></tr>
+            <tr><td>Pose et installation sur site</td><td class="r num">1</td><td class="r num">480,00</td><td class="r num">20 %</td><td class="r num">480,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <dl class="ml-auto mt-4 w-full max-w-xs text-sm grid grid-cols-2 gap-y-1.5">
+        <dt class="text-muted">Total HT</dt><dd class="r num text-right">6 600,00 €</dd>
+        <dt class="text-muted">TVA 20 %</dt><dd class="num text-right">1 320,00 €</dd>
+        <dt class="font-semibold pt-2 border-t border-line">Total TTC</dt><dd class="num text-right font-semibold pt-2 border-t border-line">7 920,00 €</dd>
+        <dt class="text-muted">Déjà réglé</dt><dd class="num text-right">0,00 €</dd>
+        <dt class="font-semibold">Reste dû</dt><dd class="num text-right font-semibold text-danger">7 920,00 €</dd>
+      </dl>
+      <p class="text-xs text-subtle mt-8">Commande d'origine CMD-1149 · Mode de règlement : virement · Pénalités de retard et indemnité forfaitaire selon conditions générales de vente.</p>
+    </section>
+
+    <aside class="space-y-6">
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Relances</h2></div>
+        <ol class="p-4 text-sm space-y-3">
+          <li><div class="text-2xs text-subtle">Préparée · 11 nov.</div><div>Niveau 1 · courtoise — <a href="decision.html" class="text-accent hover:underline">en attente d'approbation</a></div></li>
+          <li><div class="text-2xs text-subtle">Envoyée · 22 oct.</div><div>Rappel automatique J+7 · ouvert le 23 oct.</div></li>
+        </ol>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Contexte de paiement</h2></div>
+        <dl class="p-4 text-sm grid grid-cols-[1fr_auto] gap-y-2">
+          <dt class="text-muted">Délai moyen client</dt><dd class="num">34 j</dd>
+          <dt class="text-muted">Factures payées</dt><dd class="num">8 / 9</dd>
+          <dt class="text-muted">Probabilité de paiement à 30 j</dt><dd class="num">0,81</dd>
+        </dl>
+        <p class="px-4 pb-4 text-xs text-muted">Probabilité estimée à partir de l'historique de ce client et du taux de recouvrement par tranche d'ancienneté.</p>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Journal</h2></div>
+        <ol class="p-4 text-xs text-muted space-y-2">
+          <li>16 oct. · Statut OVERDUE (tâche planifiée)</li>
+          <li>15 sept. · Envoyée par e-mail par Nadia Roux</li>
+          <li>15 sept. · Validée, numéro attribué</li>
+        </ol>
+      </section>
+    </aside>
+  </div>
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vue d'ensemble — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="overview"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Vue d'ensemble"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]">
+
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-6">
+    <div>
+      <h1 class="text-xl font-semibold tracking-tight">Bonjour Claire</h1>
+      <p class="text-sm text-muted mt-0.5">Mercredi 11 novembre 2026 · Dernier calcul des indicateurs à 07:00</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="seg" role="group" aria-label="Période">
+        <button>30 jours</button><button class="active">Octobre</button><button>Trimestre</button><button>Année</button>
+      </div>
+      <button class="btn" data-toast="Export PDF de la vue d'ensemble généré (démo)"><i data-lucide="download"></i>Exporter</button>
+    </div>
+  </div>
+
+  <!-- 1. Ce qui demande une décision -->
+  <section class="panel mb-6">
+    <div class="panel-head">
+      <div class="flex items-center gap-3">
+        <h2 class="panel-title">À traiter aujourd'hui</h2>
+        <span class="text-xs text-muted">3 décisions prioritaires sur 7 ouvertes</span>
+      </div>
+      <a href="decisions.html" class="text-xs font-medium text-accent hover:underline">Centre de décision →</a>
+    </div>
+    <ul class="divide-y divide-line">
+      <li>
+        <a href="decision.html" class="grid grid-cols-1 md:grid-cols-[1fr_140px_140px_120px] gap-2 md:gap-6 items-center px-4 py-3 hover:bg-[#FAFAFB]">
+          <div class="min-w-0">
+            <div class="flex items-center gap-2"><span class="status s-danger">Haute</span><span class="font-mono text-2xs text-subtle">REC-0142</span></div>
+            <p class="font-medium mt-1">Relancer 9 clients pour 48 360 € de factures échues</p>
+            <p class="text-sm text-muted">La trésorerie projetée passe sous le seuil minimal de 150 000 € dans 24 jours si rien n'est encaissé.</p>
+          </div>
+          <div class="text-sm"><div class="text-2xs text-subtle">Impact estimé</div><div class="num font-medium">+31 400 € à 30 j</div></div>
+          <div class="text-sm"><div class="text-2xs text-subtle">Responsable</div><div>Resp. financier</div></div>
+          <div class="text-sm"><span class="status s-accent">Proposée</span></div>
+        </a>
+      </li>
+      <li>
+        <a href="stocks.html" class="grid grid-cols-1 md:grid-cols-[1fr_140px_140px_120px] gap-2 md:gap-6 items-center px-4 py-3 hover:bg-[#FAFAFB]">
+          <div class="min-w-0">
+            <div class="flex items-center gap-2"><span class="status s-warn">Moyenne</span><span class="font-mono text-2xs text-subtle">REC-0139</span></div>
+            <p class="font-medium mt-1">Commander 3 références avant la rupture estimée</p>
+            <p class="text-sm text-muted">Panneaux chêne 19 mm, quincaillerie Blum, vernis mat : couverture de 6 à 9 jours au rythme actuel.</p>
+          </div>
+          <div class="text-sm"><div class="text-2xs text-subtle">Coût estimé</div><div class="num font-medium">6 840 €</div></div>
+          <div class="text-sm"><div class="text-2xs text-subtle">Responsable</div><div>Resp. stocks</div></div>
+          <div class="text-sm"><span class="status s-accent">Proposée</span></div>
+        </a>
+      </li>
+      <li>
+        <a href="depenses.html" class="grid grid-cols-1 md:grid-cols-[1fr_140px_140px_120px] gap-2 md:gap-6 items-center px-4 py-3 hover:bg-[#FAFAFB]">
+          <div class="min-w-0">
+            <div class="flex items-center gap-2"><span class="status s-warn">Moyenne</span><span class="font-mono text-2xs text-subtle">REC-0137</span></div>
+            <p class="font-medium mt-1">Revoir le poste Sous-traitance, en dépassement de 4 120 €</p>
+            <p class="text-sm text-muted">78 % de l'écart vient de 2 interventions sur le projet Hôtel Lumen, non prévues au budget.</p>
+          </div>
+          <div class="text-sm"><div class="text-2xs text-subtle">Écart</div><div class="num font-medium">+22,9 %</div></div>
+          <div class="text-sm"><div class="text-2xs text-subtle">Responsable</div><div>Resp. financier</div></div>
+          <div class="text-sm"><span class="status s-neutral">Analysée</span></div>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 2. Indicateurs clés : un seul bloc, chaque cellule mène à sa justification -->
+  <section class="panel mb-6 grid grid-cols-2 lg:grid-cols-5 divide-line [&>*]:border-line">
+    <a href="rapports.html" class="p-4 border-b lg:border-b-0 border-r hover:bg-[#FAFAFB]">
+      <div class="text-xs text-muted">Chiffre d'affaires · oct.</div>
+      <div class="num text-[22px] font-semibold tracking-tight mt-1">214 380 €</div>
+      <div class="text-xs mt-1"><span class="text-danger num">−9,2 %</span> <span class="text-subtle">vs sept.</span></div>
+    </a>
+    <a href="rapports.html" class="p-4 border-b lg:border-b-0 lg:border-r hover:bg-[#FAFAFB]">
+      <div class="text-xs text-muted">Marge brute</div>
+      <div class="num text-[22px] font-semibold tracking-tight mt-1">38,2 %</div>
+      <div class="text-xs mt-1"><span class="text-danger num">−1,9 pt</span> <span class="text-subtle">vs sept.</span></div>
+    </a>
+    <a href="finances.html#comptes" class="p-4 border-b lg:border-b-0 border-r hover:bg-[#FAFAFB]">
+      <div class="text-xs text-muted">Trésorerie disponible</div>
+      <div class="num text-[22px] font-semibold tracking-tight mt-1">182 400 €</div>
+      <div class="text-xs mt-1"><span class="text-muted num">3 comptes</span> <span class="text-subtle">· rapproché hier</span></div>
+    </a>
+    <a href="finances.html" class="p-4 border-b lg:border-b-0 lg:border-r hover:bg-[#FAFAFB]">
+      <div class="text-xs text-muted">Créances échues</div>
+      <div class="num text-[22px] font-semibold tracking-tight mt-1">48 360 €</div>
+      <div class="text-xs mt-1"><span class="text-danger num">9 factures</span> <span class="text-subtle">· 38 % des créances</span></div>
+    </a>
+    <a href="depenses.html" class="p-4 col-span-2 lg:col-span-1 hover:bg-[#FAFAFB]">
+      <div class="text-xs text-muted">Charges d'exploitation · oct.</div>
+      <div class="num text-[22px] font-semibold tracking-tight mt-1">67 680 €</div>
+      <div class="text-xs mt-1"><span class="text-warn num">+5,8 %</span> <span class="text-subtle">vs budget 64 000 €</span></div>
+    </a>
+  </section>
+
+  <div class="grid grid-cols-1 xl:grid-cols-[1.6fr_1fr] gap-6 mb-6">
+    <!-- Trésorerie -->
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2 class="panel-title">Trésorerie — réalisé et projection à 30 jours</h2>
+          <p class="text-xs text-muted mt-0.5">Projection : échéancier clients et fournisseurs, charges récurrentes. Bande = intervalle à 80 %.</p>
+        </div>
+        <a href="simulations.html" class="btn btn-sm">Simuler</a>
+      </div>
+      <div class="p-4">
+        <svg viewBox="0 0 600 190" class="w-full h-auto" role="img" aria-label="Trésorerie hebdomadaire, réalisé puis projeté">
+          <g class="chart-grid">
+            <line x1="40" x2="590" y1="10" y2="10"/><line x1="40" x2="590" y1="42" y2="42"/><line x1="40" x2="590" y1="74" y2="74"/>
+            <line x1="40" x2="590" y1="106" y2="106"/><line x1="40" x2="590" y1="138" y2="138"/><line x1="40" x2="590" y1="170" y2="170"/>
+          </g>
+          <g class="chart-axis" text-anchor="end">
+            <text x="32" y="13">220 k</text><text x="32" y="45">200 k</text><text x="32" y="77">180 k</text>
+            <text x="32" y="109">160 k</text><text x="32" y="141">140 k</text><text x="32" y="173">120 k</text>
+          </g>
+          <g class="chart-axis" text-anchor="middle">
+            <text x="76.7" y="186">sept.</text><text x="223.3" y="186">oct.</text><text x="406.7" y="186">nov.</text><text x="553.3" y="186">déc.</text>
+          </g>
+          <!-- seuil -->
+          <line x1="40" x2="590" y1="122" y2="122" stroke="#B42318" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="44" y="117" fill="#B42318" font-size="10">Seuil minimal 150 k€</text>
+          <!-- incertitude -->
+          <polygon points="443.3,70.2 480,74 516.7,86.8 553.3,99.6 590,109.4 590,160.6 553.3,138 516.7,112.4 480,86.8" fill="#2F55D4" opacity=".08"/>
+          <!-- réalisé -->
+          <polyline fill="none" stroke="#2F55D4" stroke-width="1.75" stroke-linejoin="round"
+            points="40,34 76.7,45.2 113.3,26 150,54.8 186.7,61.2 223.3,50 260,40.4 296.7,64.4 333.3,75.6 370,67.6 406.7,58 443.3,70.2"/>
+          <!-- projeté -->
+          <polyline fill="none" stroke="#2F55D4" stroke-width="1.75" stroke-dasharray="4 3"
+            points="443.3,70.2 480,80.4 516.7,99.6 553.3,118.8 590,135"/>
+          <line x1="443.3" x2="443.3" y1="10" y2="170" stroke="#D4D7DE"/>
+          <circle cx="443.3" cy="70.2" r="3" fill="#fff" stroke="#2F55D4" stroke-width="1.5"/>
+          <text x="449" y="22" font-size="10" fill="#5A6070">Aujourd'hui · 182,4 k€</text>
+          <circle cx="590" cy="135" r="3" fill="#2F55D4"/>
+        </svg>
+        <div class="grid grid-cols-3 gap-4 mt-3 pt-3 border-t border-line text-sm">
+          <div><div class="text-2xs text-subtle">Projeté à J+30</div><div class="num font-medium">141 900 €</div></div>
+          <div><div class="text-2xs text-subtle">Intervalle 80 %</div><div class="num font-medium">126 k€ – 158 k€</div></div>
+          <div><div class="text-2xs text-subtle">Passage sous le seuil</div><div class="num font-medium text-danger">≈ 5 déc. (J+24)</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Balance âgée -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">Créances clients par ancienneté</h2>
+        <a href="finances.html" class="text-xs font-medium text-accent hover:underline">Factures →</a>
+      </div>
+      <div class="p-4 space-y-3.5 text-sm">
+        <div><div class="flex justify-between mb-1.5"><span>Non échues</span><span class="num">78 580 €</span></div><div class="bar"><span style="width:62%;background:#C9D3F3"></span></div></div>
+        <div><div class="flex justify-between mb-1.5"><span>1 – 30 jours</span><span class="num">21 450 €</span></div><div class="bar"><span style="width:17%;background:#8EA2E6"></span></div></div>
+        <div><div class="flex justify-between mb-1.5"><span>31 – 60 jours</span><span class="num">14 320 €</span></div><div class="bar"><span style="width:11.3%;background:#5F7ADC"></span></div></div>
+        <div><div class="flex justify-between mb-1.5"><span>61 – 90 jours</span><span class="num">8 140 €</span></div><div class="bar"><span style="width:6.4%;background:#2F55D4"></span></div></div>
+        <div><div class="flex justify-between mb-1.5"><span>Plus de 90 jours</span><span class="num">4 450 €</span></div><div class="bar"><span style="width:3.5%;background:#1E3A9A"></span></div></div>
+        <div class="flex justify-between pt-3 border-t border-line font-medium"><span>Total créances</span><span class="num">126 940 €</span></div>
+        <p class="text-xs text-muted">Délai moyen de paiement (DSO) : <span class="num text-ink">52 jours</span>, contre 44 jours il y a 6 mois.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="grid grid-cols-1 xl:grid-cols-[1.6fr_1fr] gap-6">
+    <!-- CA mensuel -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">Chiffre d'affaires mensuel</h2>
+        <span class="text-xs text-muted">12 derniers mois · HT</span>
+      </div>
+      <div class="p-4">
+        <div class="flex items-end gap-1.5 sm:gap-2.5 h-44">
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:76%" title="nov. 2025 · 191 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:82%" title="déc. · 205 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:70%" title="janv. · 176 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:73%" title="févr. · 183 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:79%" title="mars · 198 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:83%" title="avr. · 207 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:86%" title="mai · 215 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:91%" title="juin · 228 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:80%" title="juil. · 201 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:67%" title="août · 168 k€"></div>
+          <div class="flex-1 bg-[#C9D3F3] rounded-sm" style="height:94%" title="sept. · 236 k€"></div>
+          <div class="flex-1 bg-accent rounded-sm" style="height:86%" title="oct. · 214 k€"></div>
+        </div>
+        <div class="flex gap-1.5 sm:gap-2.5 mt-2 text-2xs text-subtle text-center">
+          <span class="flex-1">N</span><span class="flex-1">D</span><span class="flex-1">J</span><span class="flex-1">F</span><span class="flex-1">M</span><span class="flex-1">A</span>
+          <span class="flex-1">M</span><span class="flex-1">J</span><span class="flex-1">J</span><span class="flex-1">A</span><span class="flex-1">S</span><span class="flex-1 text-ink font-medium">O</span>
+        </div>
+        <div class="mt-4 pt-3 border-t border-line text-sm">
+          <p class="text-muted">Répartition d'octobre par segment</p>
+          <div class="flex h-2 mt-2 rounded-full overflow-hidden gap-px">
+            <span class="bg-accent" style="width:44%"></span><span class="bg-[#5F7ADC]" style="width:27%"></span><span class="bg-[#8EA2E6]" style="width:19%"></span><span class="bg-[#C9D3F3]" style="width:10%"></span>
+          </div>
+          <div class="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-xs text-muted">
+            <span><span class="inline-block w-2 h-2 rounded-sm bg-accent mr-1.5"></span>Restauration 44 %</span>
+            <span><span class="inline-block w-2 h-2 rounded-sm bg-[#5F7ADC] mr-1.5"></span>Hôtellerie 27 % <span class="text-danger">(−18 %)</span></span>
+            <span><span class="inline-block w-2 h-2 rounded-sm bg-[#8EA2E6] mr-1.5"></span>Commerces 19 %</span>
+            <span><span class="inline-block w-2 h-2 rounded-sm bg-[#C9D3F3] mr-1.5"></span>Maintenance 10 %</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alertes -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">Alertes actives</h2>
+        <a href="decisions.html#alertes" class="text-xs font-medium text-accent hover:underline">Toutes →</a>
+      </div>
+      <ul class="divide-y divide-line text-sm">
+        <li class="px-4 py-3"><div class="flex justify-between gap-3"><span class="status s-danger">Critique</span><span class="text-2xs text-subtle">07:00</span></div>
+          <p class="mt-1">Trésorerie projetée sous le seuil minimal à J+24</p></li>
+        <li class="px-4 py-3"><div class="flex justify-between gap-3"><span class="status s-warn">À vérifier</span><span class="text-2xs text-subtle">hier</span></div>
+          <p class="mt-1">Facture fournisseur FF-2026-0388 : possible doublon de FF-2026-0381</p></li>
+        <li class="px-4 py-3"><div class="flex justify-between gap-3"><span class="status s-warn">Modérée</span><span class="text-2xs text-subtle">9 nov.</span></div>
+          <p class="mt-1">CA Hôtellerie en baisse de 18 % sur octobre</p></li>
+        <li class="px-4 py-3"><div class="flex justify-between gap-3"><span class="status s-warn">Modérée</span><span class="text-2xs text-subtle">8 nov.</span></div>
+          <p class="mt-1">Hôtel Lumen : 86 % du budget consommé pour 61 % d'avancement</p></li>
+      </ul>
+    </section>
+  </div>
+
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

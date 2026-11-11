@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Automatisations — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+<style>.kw { font-size:11px; font-weight:600; letter-spacing:.04em; color:#8B91A0; width:44px; flex:none; padding-top:2px; }</style>
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="automatisations"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Automatisations"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]" data-tabs-scope>
+
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+    <div>
+      <h1 class="text-xl font-semibold tracking-tight">Automatisations</h1>
+      <p class="text-sm text-muted mt-0.5">Règles déclencheur → conditions → action. Les actions sensibles passent toujours par une approbation.</p>
+    </div>
+    <button class="btn btn-primary" data-toast="Éditeur de règle (démo)"><i data-lucide="plus"></i>Nouvelle règle</button>
+  </div>
+
+  <div class="tabs mb-4">
+    <button class="tab active" data-tab="regles">Règles <span class="num text-subtle ml-1">5</span></button>
+    <button class="tab" data-tab="historique">Historique d'exécution</button>
+  </div>
+
+  <section data-panel="regles" class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+    <article class="panel">
+      <div class="panel-head">
+        <div class="min-w-0"><h2 class="panel-title truncate">Relance des factures échues</h2><p class="text-xs text-muted font-mono">AUT-01 · 46 exécutions · dernière aujourd'hui 07:00</p></div>
+        <button class="switch" role="switch" aria-checked="true" aria-label="Activer" data-label="Relance des factures échues"></button>
+      </div>
+      <div class="p-4 text-sm space-y-2">
+        <div class="flex gap-3"><span class="kw">QUAND</span><span>Tâche planifiée quotidienne, 07:00</span></div>
+        <div class="flex gap-3"><span class="kw">SI</span><span>Facture au statut <span class="font-mono text-xs">OVERDUE</span> depuis plus de 7 jours, sans relance depuis 14 jours</span></div>
+        <div class="flex gap-3"><span class="kw">ALORS</span><span>Préparer une relance selon l'ancienneté et l'ajouter à une recommandation groupée</span></div>
+        <div class="flex gap-3"><span class="kw">VALIDE</span><span>Responsable financier · niveau 3 : propriétaire</span></div>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head">
+        <div class="min-w-0"><h2 class="panel-title truncate">Réapprovisionnement au seuil critique</h2><p class="text-xs text-muted font-mono">AUT-02 · 12 exécutions · dernière hier</p></div>
+        <button class="switch" role="switch" aria-checked="true" aria-label="Activer" data-label="Réapprovisionnement"></button>
+      </div>
+      <div class="p-4 text-sm space-y-2">
+        <div class="flex gap-3"><span class="kw">QUAND</span><span>Mouvement de stock enregistré</span></div>
+        <div class="flex gap-3"><span class="kw">SI</span><span>Couverture &lt; délai fournisseur + 3 jours</span></div>
+        <div class="flex gap-3"><span class="kw">ALORS</span><span>Préparer un bon de commande en brouillon</span></div>
+        <div class="flex gap-3"><span class="kw">VALIDE</span><span>Responsable stocks</span></div>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head">
+        <div class="min-w-0"><h2 class="panel-title truncate">Dépassement du budget mensuel</h2><p class="text-xs text-muted font-mono">AUT-03 · 5 exécutions · dernière 9 nov.</p></div>
+        <button class="switch" role="switch" aria-checked="true" aria-label="Activer" data-label="Dépassement budgétaire"></button>
+      </div>
+      <div class="p-4 text-sm space-y-2">
+        <div class="flex gap-3"><span class="kw">QUAND</span><span>Dépense validée</span></div>
+        <div class="flex gap-3"><span class="kw">SI</span><span>Réalisé de la catégorie &gt; budget + 10 %</span></div>
+        <div class="flex gap-3"><span class="kw">ALORS</span><span>Notifier le responsable financier et créer une alerte</span></div>
+        <div class="flex gap-3"><span class="kw">VALIDE</span><span>Aucune (notification interne)</span></div>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head">
+        <div class="min-w-0"><h2 class="panel-title truncate">Opportunité inactive</h2><p class="text-xs text-muted font-mono">AUT-04 · 21 exécutions · dernière 10 nov.</p></div>
+        <button class="switch" role="switch" aria-checked="true" aria-label="Activer" data-label="Opportunité inactive"></button>
+      </div>
+      <div class="p-4 text-sm space-y-2">
+        <div class="flex gap-3"><span class="kw">QUAND</span><span>Tâche planifiée quotidienne</span></div>
+        <div class="flex gap-3"><span class="kw">SI</span><span>Opportunité ouverte sans activité depuis 14 jours</span></div>
+        <div class="flex gap-3"><span class="kw">ALORS</span><span>Créer une tâche de suivi pour le commercial</span></div>
+        <div class="flex gap-3"><span class="kw">VALIDE</span><span>Aucune (tâche interne)</span></div>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head">
+        <div class="min-w-0"><h2 class="panel-title truncate">Rappels J+7 — factures Maintenance</h2><p class="text-xs text-danger font-mono">AUT-05 · en pause après 3 échecs</p></div>
+        <button class="switch" role="switch" aria-checked="false" aria-label="Activer" data-label="Rappels J+7"></button>
+      </div>
+      <div class="p-4 text-sm space-y-2">
+        <div class="flex gap-3"><span class="kw">QUAND</span><span>Échéance + 7 jours</span></div>
+        <div class="flex gap-3"><span class="kw">SI</span><span>Facture catégorie Maintenance non réglée</span></div>
+        <div class="flex gap-3"><span class="kw">ALORS</span><span>Envoyer le modèle « rappel-maintenance »</span></div>
+        <div class="flex gap-3"><span class="kw">ERREUR</span><span class="text-danger">Modèle d'e-mail introuvable — corriger puis réactiver</span></div>
+      </div>
+    </article>
+  </section>
+
+  <section data-panel="historique" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[880px]">
+        <thead><tr><th>Exécution</th><th>Règle</th><th>Début</th><th>Durée</th><th>Résultat</th><th>Tentatives</th><th>Clé d'idempotence</th></tr></thead>
+        <tbody>
+          <tr><td class="font-mono text-xs">EXE-8841</td><td>AUT-01</td><td>11/11 07:00:02</td><td class="num">1,4 s</td><td><span class="status s-ok">9 relances préparées</span></td><td class="num">1</td><td class="font-mono text-xs text-muted">aut01:2026-11-11</td></tr>
+          <tr><td class="font-mono text-xs">EXE-8838</td><td>AUT-02</td><td>10/11 16:22:41</td><td class="num">0,3 s</td><td><span class="status s-ok">3 brouillons BC</span></td><td class="num">1</td><td class="font-mono text-xs text-muted">aut02:PNL-CH19:W46</td></tr>
+          <tr><td class="font-mono text-xs">EXE-8836</td><td>AUT-02</td><td>10/11 16:22:44</td><td class="num">0,1 s</td><td><span class="status s-neutral">Ignorée · doublon</span></td><td class="num">1</td><td class="font-mono text-xs text-muted">aut02:PNL-CH19:W46</td></tr>
+          <tr><td class="font-mono text-xs">EXE-8829</td><td>AUT-04</td><td>10/11 07:00:05</td><td class="num">0,6 s</td><td><span class="status s-ok">2 tâches créées</span></td><td class="num">1</td><td class="font-mono text-xs text-muted">aut04:2026-11-10</td></tr>
+          <tr><td class="font-mono text-xs">EXE-8790</td><td>AUT-05</td><td>21/10 09:00:00</td><td class="num">—</td><td><span class="status s-danger">Échec · TEMPLATE_NOT_FOUND</span></td><td class="num">3 / 3</td><td class="font-mono text-xs text-muted">aut05:FAC-0349</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-muted mt-3">Reprise automatique : 3 tentatives avec délai exponentiel (1 min, 5 min, 30 min). Au-delà, la règle est mise en pause. Une règle ne peut pas déclencher une autre règle plus de 3 fois en chaîne.</p>
+  </section>
+
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

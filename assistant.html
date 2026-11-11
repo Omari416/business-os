@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Assistant — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="assistant"></aside>
+<div class="flex-1 min-w-0 flex flex-col">
+<header id="topbar" data-crumbs="Assistant / Baisse des ventes d'octobre"></header>
+<div class="flex-1 grid grid-cols-1 lg:grid-cols-[240px_1fr] xl:grid-cols-[240px_1fr_300px] min-h-0">
+
+  <!-- Conversations -->
+  <nav class="hidden lg:block border-r border-line bg-surface p-3 space-y-px text-sm">
+    <button class="btn w-full justify-center mb-3" data-toast="Nouvelle conversation (démo)"><i data-lucide="plus"></i>Nouvelle conversation</button>
+    <div class="section-label px-2 py-1">Aujourd'hui</div>
+    <a href="#" class="block px-2 py-1.5 rounded-md bg-[#E8EBF1] font-medium truncate">Baisse des ventes d'octobre</a>
+    <a href="#" data-toast="Conversation archivée (démo)" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover truncate">Trésorerie dans 30 jours</a>
+    <div class="section-label px-2 py-1 pt-3">Cette semaine</div>
+    <a href="#" data-toast="Conversation archivée (démo)" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover truncate">Clients à risque d'attrition</a>
+    <a href="#" data-toast="Conversation archivée (démo)" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover truncate">Tâches en retard par équipe</a>
+    <a href="#" data-toast="Conversation archivée (démo)" class="block px-2 py-1.5 rounded-md text-muted hover:bg-hover truncate">Top 10 des dépenses Q3</a>
+  </nav>
+
+  <!-- Fil -->
+  <section class="flex flex-col min-w-0 min-h-[calc(100vh-48px)]">
+    <div class="px-4 md:px-8 py-2 border-b border-line bg-[#FAFAFB] text-xs text-muted">
+      Conversation d'exemple pour la démonstration. En production, chaque réponse provient du modèle configuré et des outils métier, avec vos permissions.
+    </div>
+    <div class="flex-1 overflow-y-auto px-4 md:px-8 py-6">
+      <div class="max-w-3xl mx-auto space-y-8">
+
+        <!-- Q1 -->
+        <div class="flex justify-end"><div class="max-w-[85%] bg-[#EEF0F4] rounded-lg px-3.5 py-2.5 text-sm">Pourquoi mes ventes ont-elles diminué en octobre ?</div></div>
+
+        <!-- R1 -->
+        <div class="text-sm leading-6">
+          <details class="mb-3 group">
+            <summary class="cursor-pointer list-none inline-flex items-center gap-1.5 text-xs text-muted hover:text-ink">
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 group-open:rotate-90 transition-transform"></i>3 outils de lecture utilisés · 1,8 s
+            </summary>
+            <ul class="mt-2 border border-line rounded-md divide-y divide-line font-mono text-xs bg-surface">
+              <li class="px-3 py-2 flex justify-between gap-4"><span>sales.revenueBySegment({ from: "2026-09-01", to: "2026-10-31" })</span><span class="text-ok">ok · 4 lignes</span></li>
+              <li class="px-3 py-2 flex justify-between gap-4"><span>sales.revenueByCustomer({ segment: "HOTEL", months: 6 })</span><span class="text-ok">ok · 11 lignes</span></li>
+              <li class="px-3 py-2 flex justify-between gap-4"><span>crm.opportunities({ status: "LOST", since: "2026-09-01" })</span><span class="text-ok">ok · 3 lignes</span></li>
+            </ul>
+          </details>
+
+          <p>Le chiffre d'affaires d'octobre s'établit à <strong class="num">214 380 €</strong>, en baisse de <strong class="num">21 720 €</strong> (−9,2 %) par rapport à septembre. La baisse est concentrée sur un segment :</p>
+
+          <div class="panel my-3 overflow-x-auto">
+            <table class="tbl">
+              <thead><tr><th>Segment</th><th class="r">Sept.</th><th class="r">Oct.</th><th class="r">Écart</th><th class="r">Part de la baisse</th></tr></thead>
+              <tbody>
+                <tr><td>Hôtellerie</td><td class="r num">70 900 €</td><td class="r num">57 880 €</td><td class="r num text-danger">−13 020 €</td><td class="r num">60 %</td></tr>
+                <tr><td>Restauration</td><td class="r num">98 900 €</td><td class="r num">94 330 €</td><td class="r num text-danger">−4 570 €</td><td class="r num">21 %</td></tr>
+                <tr><td>Commerces</td><td class="r num">44 400 €</td><td class="r num">40 730 €</td><td class="r num text-danger">−3 670 €</td><td class="r num">17 %</td></tr>
+                <tr><td>Maintenance</td><td class="r num">21 900 €</td><td class="r num">21 440 €</td><td class="r num">−460 €</td><td class="r num">2 %</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="font-medium mt-4">Facteurs observés</p>
+          <ol class="list-decimal pl-5 space-y-1 mt-1">
+            <li>Hôtel Les Tilleuls n'a passé aucune commande en octobre (moyenne de 9 400 €/mois sur les 6 mois précédents).</li>
+            <li>2 opportunités Hôtellerie ont été perdues en septembre (Hôtel Rivage, Résidence Opaline), pour 31 000 € au total. Motif saisi : « prix ».</li>
+            <li>Septembre était exceptionnellement haut : livraison du lot 2 Hôtel Lumen (18 200 €). Hors cet effet, la baisse n'est que de −1,6 %.</li>
+          </ol>
+
+          <p class="font-medium mt-4">Hypothèses à vérifier</p>
+          <p class="mt-1">La concordance entre les deux opportunités perdues pour motif « prix » et la hausse de 7,4 % du panneau chêne répercutée dans nos devis depuis le 1er septembre <em>suggère</em> un problème de compétitivité tarifaire sur l'Hôtellerie. Ce n'est qu'une corrélation : 2 cas ne suffisent pas pour conclure.</p>
+
+          <div class="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-1 text-xs text-muted border-t border-line pt-3">
+            <div><span class="text-ink">Période</span> · 1er sept. – 31 oct. 2026, montants HT</div>
+            <div><span class="text-ink">Sources</span> · SalesOrder, Invoice, Opportunity</div>
+            <div><span class="text-ink">Limites</span> · motifs de perte saisis manuellement, 2 cas seulement</div>
+            <div><span class="text-ink">Confiance</span> · chiffres exacts ; explication probable</div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 mt-4">
+            <a href="crm.html" class="btn btn-sm">Voir les opportunités perdues</a>
+            <a href="client.html" class="btn btn-sm">Fiche Hôtel Les Tilleuls</a>
+            <a href="simulations.html" class="btn btn-sm">Simuler une baisse de prix de 3 %</a>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="flex justify-end"><div class="max-w-[85%] bg-[#EEF0F4] rounded-lg px-3.5 py-2.5 text-sm">Prépare une relance pour les clients avec des factures impayées depuis plus de 30 jours.</div></div>
+
+        <!-- R2 -->
+        <div class="text-sm leading-6">
+          <details class="mb-3 group">
+            <summary class="cursor-pointer list-none inline-flex items-center gap-1.5 text-xs text-muted hover:text-ink">
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 group-open:rotate-90 transition-transform"></i>1 outil de lecture, 1 outil de préparation · 2,4 s
+            </summary>
+            <ul class="mt-2 border border-line rounded-md divide-y divide-line font-mono text-xs bg-surface">
+              <li class="px-3 py-2 flex justify-between gap-4"><span>finance.overdueInvoices({ minDaysLate: 31 })</span><span class="text-ok">ok · 4 lignes</span></li>
+              <li class="px-3 py-2 flex justify-between gap-4"><span>actions.prepareDunning({ invoiceIds: [4] }) <span class="text-subtle">· écriture différée</span></span><span class="text-warn">en attente d'approbation</span></li>
+            </ul>
+          </details>
+          <p>4 factures dépassent 30 jours de retard, pour <strong class="num">26 910 €</strong>. Elles font déjà partie de la recommandation <a href="decision.html" class="text-accent hover:underline">REC-0142</a> : j'y ai rattaché les brouillons plutôt que de créer un doublon.</p>
+          <div class="panel mt-3 p-3 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <div class="font-medium">4 relances préparées</div>
+              <div class="text-xs text-muted">Action proposée · aucun e-mail n'a été envoyé</div>
+            </div>
+            <a href="decision.html" class="btn btn-primary btn-sm">Examiner et approuver</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Saisie -->
+    <form class="border-t border-line bg-surface px-4 md:px-8 py-3" id="ask">
+      <div class="max-w-3xl mx-auto">
+        <div class="flex flex-wrap gap-1.5 mb-2">
+          <button type="button" class="tag hover:bg-hover" data-q="Combien d'argent devrais-je avoir dans 30 jours ?">Trésorerie à 30 jours</button>
+          <button type="button" class="tag hover:bg-hover" data-q="Quels clients risquent de ne plus commander ?">Clients à risque</button>
+          <button type="button" class="tag hover:bg-hover" data-q="Quelles sont les trois décisions prioritaires aujourd'hui ?">Décisions prioritaires</button>
+        </div>
+        <div class="flex items-end gap-2 border border-line-strong rounded-md p-2 focus-within:border-accent">
+          <textarea rows="1" class="flex-1 resize-none outline-none text-sm px-1 py-1" placeholder="Posez une question sur vos données…" id="q"></textarea>
+          <button class="btn btn-primary btn-sm" type="submit"><i data-lucide="arrow-up"></i>Envoyer</button>
+        </div>
+        <p class="text-2xs text-subtle mt-1.5">Mode lecture seule. Les actions sont préparées puis soumises à approbation dans le Centre de décision.</p>
+      </div>
+    </form>
+  </section>
+
+  <!-- Contexte -->
+  <aside class="hidden xl:block border-l border-line bg-surface p-4 text-sm space-y-5">
+    <div>
+      <div class="section-label mb-2">Périmètre d'accès</div>
+      <p class="text-muted">Claire Moreau · Propriétaire. L'assistant voit uniquement les données de l'organisation Atelier Moreau.</p>
+    </div>
+    <div>
+      <div class="section-label mb-2">Outils autorisés</div>
+      <ul class="space-y-1.5 font-mono text-xs">
+        <li class="flex justify-between"><span>sales.*</span><span class="text-muted">lecture</span></li>
+        <li class="flex justify-between"><span>finance.*</span><span class="text-muted">lecture</span></li>
+        <li class="flex justify-between"><span>crm.*</span><span class="text-muted">lecture</span></li>
+        <li class="flex justify-between"><span>stock.*</span><span class="text-muted">lecture</span></li>
+        <li class="flex justify-between"><span>actions.prepare*</span><span class="text-warn">approbation</span></li>
+        <li class="flex justify-between text-subtle"><span>actions.execute*</span><span>interdit</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-label mb-2">Consommation du mois</div>
+      <div class="flex justify-between text-xs mb-1"><span class="text-muted">Requêtes</span><span class="num">312 / 2 000</span></div>
+      <div class="bar"><span style="width:15.6%"></span></div>
+    </div>
+    <a href="parametres.html#ia" class="text-xs font-medium text-accent hover:underline">Configurer l'assistant →</a>
+  </aside>
+</div>
+</div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  const q = document.getElementById('q');
+  document.querySelectorAll('[data-q]').forEach(b => b.addEventListener('click', () => { q.value = b.dataset.q; q.focus(); }));
+  document.getElementById('ask').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!q.value.trim()) return;
+    bosToast("Prototype statique : aucun modèle n'est connecté. Rien n'a été généré.");
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stocks et achats — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="stocks"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Stocks et achats"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]" data-tabs-scope>
+
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+    <div>
+      <h1 class="text-xl font-semibold tracking-tight">Stocks et achats</h1>
+      <p class="text-sm text-muted mt-0.5">2 entrepôts · 186 références actives · valeur du stock <span class="num text-ink font-medium">74 210 €</span></p>
+    </div>
+    <div class="flex gap-2">
+      <button class="btn" data-toast="Saisie d'un mouvement de stock (démo)"><i data-lucide="arrow-left-right"></i>Mouvement</button>
+      <button class="btn btn-primary" data-toast="Nouvelle commande fournisseur (démo)"><i data-lucide="plus"></i>Commande d'achat</button>
+    </div>
+  </div>
+
+  <!-- Suggestion -->
+  <section class="panel mb-6">
+    <div class="panel-head">
+      <div><h2 class="panel-title">REC-0139 · Commande suggérée avant rupture</h2><p class="text-xs text-muted mt-0.5">Couverture = stock / consommation moyenne journalière (8 semaines). Alerte si couverture &lt; délai fournisseur + 3 jours de sécurité.</p></div>
+      <span class="status s-accent">Proposée</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="tbl min-w-[860px]">
+        <thead><tr><th>Référence</th><th>Fournisseur</th><th class="r">Stock</th><th class="r">Conso / j</th><th class="r">Couverture</th><th class="r">Délai fourn.</th><th class="r">Qté suggérée</th><th class="r">Montant HT</th></tr></thead>
+        <tbody>
+          <tr><td><div class="font-medium">Panneau chêne 19 mm 2800×2070</div><div class="font-mono text-xs text-muted">PNL-CH19</div></td><td>Bois &amp; Dérivés</td><td class="r num">14</td><td class="r num">2,3</td><td class="r num text-danger">6 j</td><td class="r num">7 j</td><td class="r num">40</td><td class="r num">4 160,00</td></tr>
+          <tr><td><div class="font-medium">Coulisse Blum Tandembox 500</div><div class="font-mono text-xs text-muted">QB-TB500</div></td><td>Quincaillerie Blum France</td><td class="r num">36</td><td class="r num">4,5</td><td class="r num text-danger">8 j</td><td class="r num">10 j</td><td class="r num">120</td><td class="r num">2 040,00</td></tr>
+          <tr><td><div class="font-medium">Vernis mat aqueux 5 L</div><div class="font-mono text-xs text-muted">VRN-M5</div></td><td>Peintures Lyonnaises</td><td class="r num">9</td><td class="r num">1,0</td><td class="r num text-warn">9 j</td><td class="r num">5 j</td><td class="r num">16</td><td class="r num">640,00</td></tr>
+        </tbody>
+        <tfoot><tr class="font-medium"><td colspan="7" class="px-3 py-2.5 border-t border-line">Total suggéré</td><td class="r num px-3 py-2.5 border-t border-line">6 840,00 €</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="px-4 py-3 border-t border-line flex flex-wrap items-center justify-between gap-3">
+      <p class="text-xs text-muted">Prix du panneau chêne en hausse de 7,4 % depuis septembre. Un devis alternatif peut être demandé à Panneaux Rhône.</p>
+      <div class="flex gap-2">
+        <button class="btn btn-sm" data-toast="Bons de commande préparés en brouillon (3)">Préparer les bons de commande</button>
+        <button class="btn btn-sm btn-primary" data-toast="Envoyé au responsable stocks pour approbation">Soumettre à approbation</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="tabs mb-4">
+    <button class="tab active" data-tab="produits">Produits</button>
+    <button class="tab" data-tab="mouvements">Mouvements</button>
+    <button class="tab" data-tab="achats">Commandes d'achat</button>
+    <button class="tab" data-tab="fournisseurs">Fournisseurs</button>
+  </div>
+
+  <section data-panel="produits">
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[900px]">
+        <thead><tr><th>Produit</th><th>Catégorie</th><th>Entrepôt</th><th class="r">Stock</th><th class="r">Seuil</th><th class="r">Valeur</th><th class="r">Rotation (an)</th><th>État</th></tr></thead>
+        <tbody>
+          <tr><td>Panneau chêne 19 mm</td><td>Panneaux</td><td>Lyon 7e</td><td class="r num">14</td><td class="r num">20</td><td class="r num">1 456 €</td><td class="r num">11,2</td><td><span class="status s-danger">Sous le seuil</span></td></tr>
+          <tr><td>Panneau MDF 18 mm</td><td>Panneaux</td><td>Lyon 7e</td><td class="r num">62</td><td class="r num">30</td><td class="r num">2 418 €</td><td class="r num">8,4</td><td><span class="status s-neutral">Normal</span></td></tr>
+          <tr><td>Coulisse Blum Tandembox 500</td><td>Quincaillerie</td><td>Lyon 7e</td><td class="r num">36</td><td class="r num">40</td><td class="r num">612 €</td><td class="r num">14,0</td><td><span class="status s-danger">Sous le seuil</span></td></tr>
+          <tr><td>Vernis mat aqueux 5 L</td><td>Finition</td><td>Lyon 7e</td><td class="r num">9</td><td class="r num">8</td><td class="r num">360 €</td><td class="r num">6,1</td><td><span class="status s-warn">Proche du seuil</span></td></tr>
+          <tr><td>Chant PVC blanc 23 mm</td><td>Chants</td><td>Vénissieux</td><td class="r num">48</td><td class="r num">10</td><td class="r num">1 104 €</td><td class="r num">0,9</td><td><span class="status s-warn">Stock dormant</span></td></tr>
+          <tr><td>Skaï anthracite (m)</td><td>Tissus</td><td>Vénissieux</td><td class="r num">120</td><td class="r num">40</td><td class="r num">2 280 €</td><td class="r num">3,2</td><td><span class="status s-neutral">Normal</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section data-panel="mouvements" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[800px]">
+        <thead><tr><th>Date</th><th>Produit</th><th>Type</th><th class="r">Quantité</th><th>Référence</th><th>Par</th></tr></thead>
+        <tbody>
+          <tr><td>10/11</td><td>Panneau chêne 19 mm</td><td>Sortie production</td><td class="r num">−6</td><td class="font-mono text-xs">OF-0921</td><td>Atelier</td></tr>
+          <tr><td>07/11</td><td>Coulisse Blum Tandembox 500</td><td>Sortie production</td><td class="r num">−24</td><td class="font-mono text-xs">OF-0918</td><td>Atelier</td></tr>
+          <tr><td>04/11</td><td>Chant PVC chêne 23 mm</td><td>Ajustement manuel</td><td class="r num">−42</td><td class="text-muted">Inventaire tournant</td><td>K. Bensaïd</td></tr>
+          <tr><td>03/11</td><td>Panneau MDF 18 mm</td><td>Réception</td><td class="r num">+40</td><td class="font-mono text-xs">BC-0233</td><td>K. Bensaïd</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section data-panel="achats" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[760px]">
+        <thead><tr><th>Bon</th><th>Fournisseur</th><th>Date</th><th>Réception prévue</th><th class="r">Montant HT</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td class="font-mono text-xs">BC-0236</td><td>Quincaillerie Blum France</td><td>05/11</td><td>15/11</td><td class="r num">4 100,00 €</td><td><span class="status s-accent">Confirmé</span></td></tr>
+          <tr><td class="font-mono text-xs">BC-0233</td><td>Panneaux Rhône</td><td>27/10</td><td>03/11</td><td class="r num">1 560,00 €</td><td><span class="status s-ok">Reçu</span></td></tr>
+          <tr><td class="font-mono text-xs">BC-0231</td><td>Bois &amp; Dérivés</td><td>22/10</td><td>29/10</td><td class="r num">10 533,00 €</td><td><span class="status s-warn">Reçu partiellement</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section data-panel="fournisseurs" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[700px]">
+        <thead><tr><th>Fournisseur</th><th class="r">Achats 12 mois</th><th class="r">Délai moyen</th><th class="r">Taux de conformité</th><th>Évolution prix</th></tr></thead>
+        <tbody>
+          <tr><td>Bois &amp; Dérivés</td><td class="r num">96 400 €</td><td class="r num">7 j</td><td class="r num">94 %</td><td class="text-danger">+7,4 % (chêne)</td></tr>
+          <tr><td>Quincaillerie Blum France</td><td class="r num">38 200 €</td><td class="r num">10 j</td><td class="r num">99 %</td><td class="text-muted">stable</td></tr>
+          <tr><td>Panneaux Rhône</td><td class="r num">14 900 €</td><td class="r num">6 j</td><td class="r num">97 %</td><td class="text-muted">stable</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

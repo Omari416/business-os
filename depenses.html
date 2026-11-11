@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dépenses — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="depenses"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Dépenses"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]">
+
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+    <div>
+      <h1 class="text-xl font-semibold tracking-tight">Dépenses</h1>
+      <p class="text-sm text-muted mt-0.5">Octobre 2026 · charges d'exploitation <span class="num text-ink font-medium">67 680 €</span> pour un budget de <span class="num text-ink">64 000 €</span></p>
+    </div>
+    <div class="flex gap-2">
+      <div class="seg"><button>Sept.</button><button class="active">Oct.</button><button>Nov.</button></div>
+      <button class="btn btn-primary" data-toast="Saisie d'une dépense avec justificatif (démo)"><i data-lucide="plus"></i>Dépense</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 xl:grid-cols-[1fr_1.4fr] gap-6 mb-6">
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title">Budget et réalisé par catégorie</h2></div>
+      <div class="overflow-x-auto">
+        <table class="tbl">
+          <thead><tr><th>Catégorie</th><th class="r">Budget</th><th class="r">Réalisé</th><th class="w-32">Consommé</th></tr></thead>
+          <tbody>
+            <tr><td>Salaires et charges</td><td class="r num">38 500</td><td class="r num">38 210</td><td><div class="bar"><span style="width:99%"></span></div></td></tr>
+            <tr><td>Sous-traitance</td><td class="r num">18 000</td><td class="r num text-danger">22 120</td><td><div class="bar"><span style="width:100%;background:#B42318"></span></div></td></tr>
+            <tr><td>Loyer et charges</td><td class="r num">4 200</td><td class="r num">4 200</td><td><div class="bar"><span style="width:100%"></span></div></td></tr>
+            <tr><td>Transport</td><td class="r num">1 600</td><td class="r num">1 790</td><td><div class="bar"><span style="width:100%;background:#A15C07"></span></div></td></tr>
+            <tr><td>Énergie</td><td class="r num">900</td><td class="r num">860</td><td><div class="bar"><span style="width:95%"></span></div></td></tr>
+            <tr><td>Logiciels</td><td class="r num">400</td><td class="r num">380</td><td><div class="bar"><span style="width:95%"></span></div></td></tr>
+            <tr><td>Autres</td><td class="r num">400</td><td class="r num">120</td><td><div class="bar"><span style="width:30%"></span></div></td></tr>
+          </tbody>
+          <tfoot><tr class="font-medium"><td class="px-3 py-2.5 border-t border-line">Total</td><td class="r num px-3 py-2.5 border-t border-line">64 000</td><td class="r num px-3 py-2.5 border-t border-line">67 680</td><td class="border-t border-line"></td></tr></tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div><h2 class="panel-title">REC-0137 · Sous-traitance en dépassement de 4 120 €</h2><p class="text-xs text-muted mt-0.5">Règle budget.category_overrun · seuil 10 % · statut Analysée</p></div>
+        <a href="decisions.html" class="text-xs font-medium text-accent hover:underline">Centre de décision →</a>
+      </div>
+      <div class="p-4 text-sm space-y-3">
+        <p>Écart de <span class="num font-medium">+4 120 €</span> (+22,9 %). Deux interventions de <span class="text-ink">Menuiserie Royer</span> sur le projet Hôtel Lumen (<span class="num">3 210 €</span>) expliquent 78 % de l'écart ; elles ne figuraient pas au budget du projet.</p>
+        <p class="font-medium">Actions proposées</p>
+        <ol class="list-decimal pl-5 space-y-1 text-muted">
+          <li>Réaffecter ces 3 210 € au budget du projet Hôtel Lumen (<a href="projets.html" class="text-accent hover:underline">voir projet</a>).</li>
+          <li>Ajouter une validation préalable pour toute sous-traitance au-delà de 1 500 €.</li>
+        </ol>
+        <div class="flex gap-2 pt-1">
+          <button class="btn btn-sm btn-primary" data-toast="Proposition envoyée au responsable financier pour approbation">Proposer pour approbation</button>
+          <button class="btn btn-sm" data-toast="Recommandation ignorée pour ce mois">Ignorer</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Dépenses du mois</h2>
+      <label class="flex items-center gap-2 h-[30px] w-56 px-2.5 border border-line-strong rounded-md bg-surface text-subtle">
+        <i data-lucide="search" class="w-3.5 h-3.5"></i><input class="flex-1 bg-transparent outline-none text-[13px] text-ink" placeholder="Filtrer…" data-filter="#t-exp">
+      </label>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="tbl min-w-[900px]" id="t-exp">
+        <thead><tr><th>Date</th><th>Fournisseur</th><th>Catégorie</th><th>Projet</th><th class="r">Montant TTC</th><th>Justificatif</th><th>Contrôle</th></tr></thead>
+        <tbody>
+          <tr><td>28/10</td><td>Menuiserie Royer</td><td>Sous-traitance</td><td>Hôtel Lumen</td><td class="r num">2 040,00</td><td>Oui</td><td><span class="status s-warn">Hors budget projet</span></td></tr>
+          <tr><td>24/10</td><td>Métal Concept</td><td>Sous-traitance</td><td>Kintaro</td><td class="r num">1 860,00</td><td>Oui</td><td><span class="status s-warn">Doublon possible (FF-0388)</span></td></tr>
+          <tr><td>21/10</td><td>Menuiserie Royer</td><td>Sous-traitance</td><td>Hôtel Lumen</td><td class="r num">1 170,00</td><td>Oui</td><td><span class="status s-warn">Hors budget projet</span></td></tr>
+          <tr><td>15/10</td><td>Geodis</td><td>Transport</td><td>—</td><td class="r num">640,00</td><td>Oui</td><td><span class="status s-neutral">Conforme</span></td></tr>
+          <tr><td>12/10</td><td>EDF Entreprises</td><td>Énergie</td><td>—</td><td class="r num">860,00</td><td>Oui</td><td><span class="status s-neutral">Conforme</span></td></tr>
+          <tr><td>05/10</td><td>SCI Tanneurs</td><td>Loyer</td><td>—</td><td class="r num">4 200,00</td><td>Oui</td><td><span class="status s-neutral">Conforme</span></td></tr>
+          <tr><td>03/10</td><td>Station Total</td><td>Transport</td><td>—</td><td class="r num">186,40</td><td class="text-danger">Manquant</td><td><span class="status s-warn">Justificatif requis</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="px-4 py-3 text-xs text-muted border-t border-line">Les contrôles signalent des écarts à vérifier. Ils ne constituent ni une accusation ni une qualification de fraude.</p>
+  </section>
+
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

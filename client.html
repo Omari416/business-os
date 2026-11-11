@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brasserie Lefèvre — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="crm"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="CRM / Clients / Brasserie Lefèvre"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]" data-tabs-scope>
+
+  <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+    <div class="flex items-start gap-3">
+      <div class="w-10 h-10 rounded-md bg-[#E8EBF1] grid place-items-center text-sm font-semibold">BL</div>
+      <div>
+        <h1 class="text-xl font-semibold tracking-tight">Brasserie Lefèvre</h1>
+        <p class="text-sm text-muted">Client depuis mars 2022 · Restauration · Lyon 2e · SIREN 812 345 678</p>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <button class="btn" data-toast="Appel enregistré dans l'historique (démo)"><i data-lucide="phone"></i>Journaliser un appel</button>
+      <a href="ventes.html" class="btn"><i data-lucide="file-plus"></i>Nouveau devis</a>
+      <button class="btn" data-toast="Modification de la fiche (démo)"><i data-lucide="pencil"></i>Modifier</button>
+    </div>
+  </div>
+
+  <section class="panel grid grid-cols-2 md:grid-cols-5 gap-px bg-line overflow-hidden mb-6">
+    <div class="bg-surface p-4"><div class="text-xs text-muted">CA 12 mois</div><div class="num text-lg font-semibold mt-1">86 400 €</div></div>
+    <div class="bg-surface p-4"><div class="text-xs text-muted">Marge brute</div><div class="num text-lg font-semibold mt-1">41,3 %</div></div>
+    <div class="bg-surface p-4"><div class="text-xs text-muted">Encours</div><div class="num text-lg font-semibold mt-1">7 920 €</div></div>
+    <div class="bg-surface p-4"><div class="text-xs text-muted">Délai moyen de paiement</div><div class="num text-lg font-semibold mt-1">38 j</div></div>
+    <div class="bg-surface p-4 col-span-2 md:col-span-1"><div class="text-xs text-muted">Risque d'attrition (est.)</div><div class="num text-lg font-semibold mt-1">0,12</div></div>
+  </section>
+
+  <div class="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6">
+    <div class="min-w-0">
+      <div class="tabs mb-4">
+        <button class="tab active" data-tab="factures">Factures</button>
+        <button class="tab" data-tab="opps">Opportunités</button>
+        <button class="tab" data-tab="hist">Historique</button>
+      </div>
+      <section data-panel="factures" class="panel overflow-x-auto">
+        <table class="tbl min-w-[640px]">
+          <thead><tr><th>Facture</th><th>Émise</th><th>Échéance</th><th class="r">Montant TTC</th><th>Statut</th></tr></thead>
+          <tbody>
+            <tr class="row-link" data-href="facture.html"><td class="font-mono text-xs">FAC-2026-0371</td><td>15/09/2026</td><td>15/10/2026</td><td class="r num">7 920,00 €</td><td><span class="status s-danger">Échue · 27 j</span></td></tr>
+            <tr><td class="font-mono text-xs">FAC-2026-0329</td><td>12/08/2026</td><td>11/09/2026</td><td class="r num">12 480,00 €</td><td><span class="status s-ok">Payée le 18/09</span></td></tr>
+            <tr><td class="font-mono text-xs">FAC-2026-0274</td><td>03/07/2026</td><td>02/08/2026</td><td class="r num">5 160,00 €</td><td><span class="status s-ok">Payée le 30/07</span></td></tr>
+            <tr><td class="font-mono text-xs">FAC-2026-0211</td><td>28/05/2026</td><td>27/06/2026</td><td class="r num">21 840,00 €</td><td><span class="status s-ok">Payée le 08/07</span></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section data-panel="opps" hidden class="panel overflow-x-auto">
+        <table class="tbl"><thead><tr><th>Opportunité</th><th>Étape</th><th class="r">Montant</th><th>Probabilité</th></tr></thead>
+          <tbody><tr><td>Terrasse — mobilier extérieur</td><td>Proposition</td><td class="r num">18 400 €</td><td>40 %</td></tr>
+          <tr><td>Rénovation comptoir (2025)</td><td><span class="status s-ok">Gagnée</span></td><td class="r num">21 840 €</td><td>—</td></tr></tbody></table>
+      </section>
+      <section data-panel="hist" hidden class="panel divide-y divide-line text-sm">
+        <div class="px-4 py-3"><div class="text-xs text-muted">7 nov. · Inès Garcia · Visite</div><div>Présentation des échantillons pour la terrasse. Décision attendue avant le 30 novembre.</div></div>
+        <div class="px-4 py-3"><div class="text-xs text-muted">22 oct. · Système · Rappel</div><div>Rappel d'échéance J+7 envoyé pour FAC-2026-0371.</div></div>
+        <div class="px-4 py-3"><div class="text-xs text-muted">12 oct. · Inès Garcia · Commande</div><div>Commande CMD-1162 — remplacement de 6 banquettes.</div></div>
+      </section>
+    </div>
+
+    <aside class="space-y-6">
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Analyse</h2><span class="text-2xs text-subtle">Recalculée à 07:00</span></div>
+        <div class="p-4 text-sm space-y-3">
+          <p>Client régulier : 9 commandes en 12 mois, panier moyen <span class="num">9 600 €</span>. Le retard actuel (27 j) est inhabituel : ses 6 dernières factures ont été réglées en 34 jours en moyenne.</p>
+          <p class="text-muted">Suggestion : relance courtoise, intégrée à <a href="decision.html" class="text-accent hover:underline">REC-0142</a>. Mentionner l'opportunité Terrasse lors de l'échange.</p>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Contacts</h2></div>
+        <ul class="p-4 text-sm space-y-3">
+          <li><div class="font-medium">Sophie Lefèvre</div><div class="text-muted text-xs">Gérante · 06 12 34 56 78</div></li>
+          <li><div class="font-medium">Comptabilité</div><div class="text-muted text-xs">comptabilite@brasserie-lefevre.fr</div></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

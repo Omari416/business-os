@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Centre de décision — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="decisions"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Centre de décision"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]" data-tabs-scope>
+
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+    <div>
+      <h1 class="text-xl font-semibold tracking-tight">Centre de décision</h1>
+      <p class="text-sm text-muted mt-0.5">Recommandations et alertes issues de tous les modules. Moteur exécuté chaque nuit et à chaque événement métier.</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="btn" data-toast="Réévaluation lancée : 14 règles, 0 nouvelle recommandation (démo)"><i data-lucide="refresh-cw"></i>Réévaluer</button>
+    </div>
+  </div>
+
+  <!-- Cycle de vie -->
+  <section class="panel mb-5 px-4 py-3 overflow-x-auto">
+    <ol class="flex items-center gap-2 text-xs whitespace-nowrap min-w-max">
+      <li class="flex items-center gap-2"><span class="text-muted">Détectée</span><span class="num font-medium">2</span></li><li class="text-subtle">→</li>
+      <li class="flex items-center gap-2"><span class="text-muted">Analysée</span><span class="num font-medium">2</span></li><li class="text-subtle">→</li>
+      <li class="flex items-center gap-2"><span class="text-muted">Proposée</span><span class="num font-medium">3</span></li><li class="text-subtle">→</li>
+      <li class="flex items-center gap-2"><span class="text-muted">Approuvée</span><span class="num font-medium">1</span></li><li class="text-subtle">→</li>
+      <li class="flex items-center gap-2"><span class="text-muted">En cours</span><span class="num font-medium">3</span></li><li class="text-subtle">→</li>
+      <li class="flex items-center gap-2"><span class="text-muted">Terminée</span><span class="num font-medium">5</span></li><li class="text-subtle">→</li>
+      <li class="flex items-center gap-2"><span class="text-muted">Évaluée</span><span class="num font-medium">18</span></li>
+      <li class="w-px h-4 bg-line mx-2"></li>
+      <li class="flex items-center gap-2"><span class="text-muted">Rejetée</span><span class="num font-medium">6</span></li>
+      <li class="flex items-center gap-2 ml-3"><span class="text-muted">Annulée</span><span class="num font-medium">2</span></li>
+      <li class="flex items-center gap-2 ml-3"><span class="text-muted">Échec</span><span class="num font-medium">1</span></li>
+    </ol>
+  </section>
+
+  <div class="tabs mb-4">
+    <button class="tab active" data-tab="ouvertes">À traiter <span class="num text-subtle ml-1">7</span></button>
+    <button class="tab" data-tab="encours">En exécution <span class="num text-subtle ml-1">4</span></button>
+    <button class="tab" data-tab="evaluees">Évaluées <span class="num text-subtle ml-1">18</span></button>
+    <button class="tab" data-tab="alertes">Alertes <span class="num text-subtle ml-1">6</span></button>
+  </div>
+
+  <!-- À traiter -->
+  <section data-panel="ouvertes">
+    <div class="flex flex-wrap items-center gap-2 mb-3">
+      <label class="flex items-center gap-2 h-[30px] w-64 px-2.5 border border-line-strong rounded-md bg-surface text-subtle">
+        <i data-lucide="search" class="w-3.5 h-3.5"></i><input class="flex-1 bg-transparent outline-none text-[13px] text-ink" placeholder="Filtrer…" data-filter="#t-open">
+      </label>
+      <select class="input w-auto"><option>Tous les modules</option><option>Finances</option><option>CRM</option><option>Stocks</option><option>Dépenses</option><option>Projets</option><option>RH</option></select>
+      <select class="input w-auto"><option>Toutes priorités</option><option>Haute</option><option>Moyenne</option><option>Basse</option></select>
+    </div>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[960px]" id="t-open">
+        <thead><tr><th>Priorité</th><th>Décision</th><th>Module</th><th class="r">Impact estimé</th><th>Confiance</th><th>Responsable</th><th>Statut</th><th>Détectée</th></tr></thead>
+        <tbody>
+          <tr class="row-link" data-href="decision.html">
+            <td><span class="status s-danger">Haute</span></td>
+            <td><div class="font-medium">Relancer 9 clients pour 48 360 € de factures échues</div><div class="text-xs text-muted font-mono">REC-0142 · règle finance.overdue_receivables</div></td>
+            <td>Finances</td><td class="r num">+31 400 €</td><td>Élevée</td><td>Resp. financier</td><td><span class="status s-accent">Proposée</span></td><td class="text-muted">Aujourd'hui</td>
+          </tr>
+          <tr class="row-link" data-href="stocks.html">
+            <td><span class="status s-warn">Moyenne</span></td>
+            <td><div class="font-medium">Commander 3 références avant la rupture estimée</div><div class="text-xs text-muted font-mono">REC-0139 · règle stock.coverage_below_lead_time</div></td>
+            <td>Stocks</td><td class="r num">Évite 2 j d'arrêt atelier</td><td>Moyenne</td><td>Resp. stocks</td><td><span class="status s-accent">Proposée</span></td><td class="text-muted">10 nov.</td>
+          </tr>
+          <tr class="row-link" data-href="depenses.html">
+            <td><span class="status s-warn">Moyenne</span></td>
+            <td><div class="font-medium">Revoir le poste Sous-traitance, en dépassement de 4 120 €</div><div class="text-xs text-muted font-mono">REC-0137 · règle budget.category_overrun</div></td>
+            <td>Dépenses</td><td class="r num">−4 120 € / mois</td><td>Élevée</td><td>Resp. financier</td><td><span class="status s-neutral">Analysée</span></td><td class="text-muted">9 nov.</td>
+          </tr>
+          <tr class="row-link" data-href="client.html">
+            <td><span class="status s-warn">Moyenne</span></td>
+            <td><div class="font-medium">Recontacter 4 clients Hôtellerie sans commande depuis 90 jours</div><div class="text-xs text-muted font-mono">REC-0136 · règle crm.inactive_customers</div></td>
+            <td>CRM</td><td class="r num">≈ 38 000 € de CA annuel exposé</td><td>Moyenne</td><td>Resp. commercial</td><td><span class="status s-accent">Proposée</span></td><td class="text-muted">9 nov.</td>
+          </tr>
+          <tr class="row-link" data-href="projets.html">
+            <td><span class="status s-warn">Moyenne</span></td>
+            <td><div class="font-medium">Réviser le budget du projet Hôtel Lumen ou renégocier l'avenant</div><div class="text-xs text-muted font-mono">REC-0134 · règle project.budget_burn_ahead</div></td>
+            <td>Projets</td><td class="r num">Dépassement projeté 11 200 €</td><td>Moyenne</td><td>Chef de projet</td><td><span class="status s-neutral">Analysée</span></td><td class="text-muted">8 nov.</td>
+          </tr>
+          <tr class="row-link" data-href="depenses.html">
+            <td><span class="status s-neutral">Basse</span></td>
+            <td><div class="font-medium">Vérifier la facture FF-2026-0388 (doublon possible)</div><div class="text-xs text-muted font-mono">REC-0141 · contrôle control.duplicate_invoice</div></td>
+            <td>Dépenses</td><td class="r num">1 860 €</td><td>—</td><td>Comptabilité</td><td><span class="status s-neutral">Détectée</span></td><td class="text-muted">Hier</td>
+          </tr>
+          <tr class="row-link" data-href="rh.html">
+            <td><span class="status s-neutral">Basse</span></td>
+            <td><div class="font-medium">Planifier une formation CNC pour 2 menuisiers</div><div class="text-xs text-muted font-mono">REC-0130 · règle hr.skill_gap</div></td>
+            <td>RH</td><td class="r num">Réduit la dépendance à 1 opérateur</td><td>Faible</td><td>Resp. RH</td><td><span class="status s-neutral">Détectée</span></td><td class="text-muted">5 nov.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-muted mt-3">Les recommandations sont dédupliquées par clé (règle + entité + période). Une recommandation non traitée expire après 14 jours et est réévaluée si sa cause persiste.</p>
+  </section>
+
+  <!-- En exécution -->
+  <section data-panel="encours" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[860px]">
+        <thead><tr><th>Décision</th><th>Approuvée par</th><th>Avancement</th><th>Résultat intermédiaire</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td><div class="font-medium">Relance des devis non signés de plus de 21 jours</div><div class="text-xs text-muted font-mono">REC-0128</div></td><td>Julien Arnaud · 3 nov.</td>
+            <td class="w-48"><div class="flex items-center gap-2"><div class="bar flex-1"><span style="width:70%"></span></div><span class="num text-xs text-muted">7/10</span></div></td>
+            <td class="text-muted">2 devis signés · 14 600 €</td><td><span class="status s-accent">En cours</span></td></tr>
+          <tr><td><div class="font-medium">Ajustement du seuil de réapprovisionnement — vernis mat</div><div class="text-xs text-muted font-mono">REC-0125</div></td><td>Karim Bensaïd · 30 oct.</td>
+            <td><div class="flex items-center gap-2"><div class="bar flex-1"><span style="width:100%"></span></div><span class="num text-xs text-muted">1/1</span></div></td>
+            <td class="text-muted">Mesure à J+30 prévue le 29 nov.</td><td><span class="status s-ok">Terminée</span></td></tr>
+          <tr><td><div class="font-medium">Renégociation tarif transport Geodis</div><div class="text-xs text-muted font-mono">REC-0121</div></td><td>Claire Moreau · 24 oct.</td>
+            <td><div class="flex items-center gap-2"><div class="bar flex-1"><span style="width:40%"></span></div><span class="num text-xs text-muted">2/5</span></div></td>
+            <td class="text-muted">Rendez-vous fixé le 14 nov.</td><td><span class="status s-accent">En cours</span></td></tr>
+          <tr><td><div class="font-medium">Envoi automatique des rappels J+7 — factures Maintenance</div><div class="text-xs text-muted font-mono">REC-0119</div></td><td>Claire Moreau · 21 oct.</td>
+            <td><div class="flex items-center gap-2"><div class="bar flex-1"><span style="width:100%;background:#B42318"></span></div><span class="num text-xs text-muted">—</span></div></td>
+            <td class="text-danger">Échec : modèle d'e-mail introuvable</td><td><span class="status s-danger">Échec</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Évaluées -->
+  <section data-panel="evaluees" hidden>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-line border border-line rounded-lg overflow-hidden mb-4">
+      <div class="bg-surface p-4"><div class="text-xs text-muted">Taux d'acceptation (90 j)</div><div class="num text-lg font-semibold mt-1">72 %</div></div>
+      <div class="bg-surface p-4"><div class="text-xs text-muted">Impact mesuré cumulé</div><div class="num text-lg font-semibold mt-1">+64 820 €</div></div>
+      <div class="bg-surface p-4"><div class="text-xs text-muted">Écart impact estimé / mesuré</div><div class="num text-lg font-semibold mt-1">−11 %</div></div>
+    </div>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[800px]">
+        <thead><tr><th>Décision</th><th class="r">Impact estimé</th><th class="r">Impact mesuré</th><th>Délai</th><th>Évaluation</th></tr></thead>
+        <tbody>
+          <tr><td>Relance des factures échues — septembre <span class="font-mono text-xs text-muted">REC-0097</span></td><td class="r num">22 000 €</td><td class="r num">18 940 €</td><td>Délai moyen 11 j</td><td><span class="status s-ok">Atteint à 86 %</span></td></tr>
+          <tr><td>Réduction du stock dormant — chants PVC <span class="font-mono text-xs text-muted">REC-0089</span></td><td class="r num">3 400 €</td><td class="r num">3 910 €</td><td>21 j</td><td><span class="status s-ok">Dépassé</span></td></tr>
+          <tr><td>Relance prospects salon EquipHotel <span class="font-mono text-xs text-muted">REC-0082</span></td><td class="r num">40 000 €</td><td class="r num">12 300 €</td><td>45 j</td><td><span class="status s-warn">Atteint à 31 %</span></td></tr>
+          <tr><td>Changement de fournisseur visserie <span class="font-mono text-xs text-muted">REC-0076</span></td><td class="r num">1 200 € / mois</td><td class="r num">960 € / mois</td><td>60 j</td><td><span class="status s-ok">Atteint à 80 %</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-muted mt-3">Ces écarts servent à recalibrer les estimations d'impact par type de règle. Aucune règle critique n'est modifiée sans validation d'un administrateur.</p>
+  </section>
+
+  <!-- Alertes -->
+  <section data-panel="alertes" hidden>
+    <div class="panel overflow-x-auto">
+      <table class="tbl min-w-[900px]">
+        <thead><tr><th>Gravité</th><th>Alerte</th><th>Source</th><th>Détectée</th><th>Occurrences</th><th>Statut</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><span class="status s-danger">Critique</span></td><td>Trésorerie projetée sous le seuil minimal (150 000 €) à J+24</td><td>Prévision trésorerie</td><td>11 nov. 07:00</td><td class="num">1</td><td>Ouverte</td><td><a href="decision.html" class="btn btn-sm">Voir REC-0142</a></td></tr>
+          <tr><td><span class="status s-warn">À vérifier</span></td><td>FF-2026-0388 : même fournisseur, même montant que FF-2026-0381, à 2 jours d'écart</td><td>Contrôle doublons</td><td>10 nov.</td><td class="num">1</td><td>Ouverte</td><td><a href="depenses.html" class="btn btn-sm">Examiner</a></td></tr>
+          <tr><td><span class="status s-warn">Modérée</span></td><td>CA Hôtellerie −18 % sur octobre (écart > 2 σ sur 12 mois)</td><td>Indicateurs ventes</td><td>9 nov.</td><td class="num">1</td><td>Ouverte</td><td><a href="assistant.html" class="btn btn-sm">Analyser</a></td></tr>
+          <tr><td><span class="status s-warn">Modérée</span></td><td>Projet Hôtel Lumen : 86 % du budget pour 61 % d'avancement</td><td>Projets</td><td>8 nov.</td><td class="num">3</td><td>Regroupée</td><td><a href="projets.html" class="btn btn-sm">Ouvrir</a></td></tr>
+          <tr><td><span class="status s-neutral">Info</span></td><td>Prix d'achat panneau chêne 19 mm +7,4 % (Bois & Dérivés)</td><td>Achats</td><td>6 nov.</td><td class="num">1</td><td>Ouverte</td><td><a href="stocks.html" class="btn btn-sm">Ouvrir</a></td></tr>
+          <tr><td><span class="status s-neutral">Info</span></td><td>Mouvement de stock manuel de −42 unités sans bon associé</td><td>Contrôle stocks</td><td>4 nov.</td><td class="num">1</td><td><span class="status s-ok">Résolue</span></td><td><button class="btn btn-sm" data-toast="Résolution : inventaire tournant confirmé par K. Bensaïd">Détail</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-muted mt-3">Une anomalie n'est jamais qualifiée de fraude. Les alertes identiques sont regroupées et ne génèrent pas de nouvelle notification tant qu'elles restent ouvertes.</p>
+  </section>
+
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

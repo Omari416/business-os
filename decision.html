@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>REC-0142 · Relance des factures échues — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .step { display:flex; flex-direction:column; gap:6px; flex:1; min-width:96px; }
+  .step .track { height:3px; border-radius:2px; background:#E6E8EC; }
+  .step.done .track { background:#2F55D4; }
+  .step.current .track { background:#15171C; }
+  .step .lbl { font-size:12px; color:#8B91A0; }
+  .step.done .lbl, .step.current .lbl { color:#15171C; }
+  .step.current .lbl { font-weight:600; }
+</style>
+</head>
+<body>
+<div class="lg:flex min-h-screen">
+<aside id="sidebar" data-active="decisions"></aside>
+<div class="flex-1 min-w-0">
+<header id="topbar" data-crumbs="Centre de décision / REC-0142"></header>
+<main class="px-4 md:px-6 py-6 max-w-[1400px]">
+
+  <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+    <div class="min-w-0">
+      <div class="flex items-center gap-3 text-xs text-muted">
+        <span class="font-mono">REC-0142</span><span>Finances · Créances clients</span><span id="status-label" class="status s-accent">Proposée</span>
+      </div>
+      <h1 class="text-xl font-semibold tracking-tight mt-1.5">Relancer 9 clients pour 48 360 € de factures échues</h1>
+      <p class="text-sm text-muted mt-1 max-w-3xl">Générée par la règle <span class="font-mono text-ink">finance.overdue_receivables</span> le 11 nov. 2026 à 07:00, déclenchée par l'alerte ALR-311 (trésorerie projetée sous le seuil minimal).</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="decisions.html" class="btn"><i data-lucide="arrow-left"></i>Retour</a>
+      <button class="btn" data-toast="Lien copié dans le presse-papiers"><i data-lucide="link"></i>Copier le lien</button>
+    </div>
+  </div>
+
+  <!-- Cycle de vie -->
+  <section class="panel p-4 mb-6 overflow-x-auto">
+    <div class="flex gap-2 min-w-[720px]" id="stepper">
+      <div class="step done"><span class="track"></span><span class="lbl">Détectée</span><span class="font-mono text-2xs text-subtle">DETECTED · 07:00</span></div>
+      <div class="step done"><span class="track"></span><span class="lbl">Analysée</span><span class="font-mono text-2xs text-subtle">ANALYZED · 07:00</span></div>
+      <div class="step current"><span class="track"></span><span class="lbl">Proposée</span><span class="font-mono text-2xs text-subtle">PROPOSED · 07:01</span></div>
+      <div class="step"><span class="track"></span><span class="lbl">Approuvée</span><span class="font-mono text-2xs text-subtle">APPROVED</span></div>
+      <div class="step"><span class="track"></span><span class="lbl">En cours</span><span class="font-mono text-2xs text-subtle">IN_PROGRESS</span></div>
+      <div class="step"><span class="track"></span><span class="lbl">Terminée</span><span class="font-mono text-2xs text-subtle">COMPLETED</span></div>
+      <div class="step"><span class="track"></span><span class="lbl">Évaluée</span><span class="font-mono text-2xs text-subtle">EVALUATED</span></div>
+    </div>
+  </section>
+
+  <div class="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-6">
+    <div class="space-y-6 min-w-0">
+
+      <!-- Problème -->
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Problème identifié</h2></div>
+        <div class="p-4 text-sm leading-6 space-y-3">
+          <p>9 factures clients sont échues pour un total de <strong class="num">48 360 €</strong>, soit 38 % de l'encours client. Deux d'entre elles ont plus de 60 jours de retard.</p>
+          <p>Sans encaissement, la trésorerie projetée passe de <span class="num">182 400 €</span> aujourd'hui à <span class="num">141 900 €</span> à J+30, sous le seuil minimal de <span class="num">150 000 €</span> défini dans les paramètres. Le paiement des salaires du 30 novembre (<span class="num">54 200 €</span>) est inclus dans la projection.</p>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line rounded-md overflow-hidden mt-2">
+            <div class="bg-surface p-3"><div class="text-2xs text-subtle">1 – 30 j</div><div class="num font-medium">21 450 € · 5</div></div>
+            <div class="bg-surface p-3"><div class="text-2xs text-subtle">31 – 60 j</div><div class="num font-medium">14 320 € · 2</div></div>
+            <div class="bg-surface p-3"><div class="text-2xs text-subtle">61 – 90 j</div><div class="num font-medium">8 140 € · 1</div></div>
+            <div class="bg-surface p-3"><div class="text-2xs text-subtle">&gt; 90 j</div><div class="num font-medium text-danger">4 450 € · 1</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Données justificatives -->
+      <section class="panel">
+        <div class="panel-head">
+          <div><h2 class="panel-title">Données justificatives</h2><p class="text-xs text-muted mt-0.5">Source : table Invoice, statut OVERDUE, extraction du 11 nov. 07:00. Montants TTC en EUR.</p></div>
+          <a href="finances.html" class="text-xs font-medium text-accent hover:underline">Ouvrir dans Finances →</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="tbl min-w-[760px]" id="t-invoices">
+            <thead><tr><th class="w-8"><input type="checkbox" checked aria-label="Tout inclure" id="chk-all"></th><th>Facture</th><th>Client</th><th>Échéance</th><th class="r">Retard</th><th class="r">Montant</th><th>Niveau de relance</th><th>Envoi</th></tr></thead>
+            <tbody>
+              <tr><td><input type="checkbox" checked class="chk" data-amount="4450"></td><td class="font-mono text-xs"><a href="facture.html" class="hover:underline">FAC-2026-0298</a></td><td>Bistro Nadal</td><td>02/08/2026</td><td class="r num text-danger">101 j</td><td class="r num">4 450,00</td><td>3 · Mise en demeure</td><td class="send text-muted">Brouillon</td></tr>
+              <tr><td><input type="checkbox" checked class="chk" data-amount="8140"></td><td class="font-mono text-xs"><a href="facture.html" class="hover:underline">FAC-2026-0322</a></td><td>Café des Arts</td><td>22/08/2026</td><td class="r num text-danger">81 j</td><td class="r num">8 140,00</td><td>3 · Formelle</td><td class="send text-muted">Brouillon</td></tr>
+              <tr><td><input type="checkbox" checked class="chk" data-amount="9870"></td><td class="font-mono text-xs"><a href="facture.html" class="hover:underline">FAC-2026-0351</a></td><td>Hôtel Les Tilleuls</td><td>19/09/2026</td><td class="r num">53 j</td><td class="r num">9 870,00</td><td>2 · Ferme</td><td class="send text-muted">Brouillon</td></tr>
+              <tr><td><input type="checkbox" checked class="chk" data-amount="4450"></td><td class="font-mono text-xs"><a href="facture.html" class="hover:underline">FAC-2026-0356</a></td><td>Boulangerie Ferrand</td><td>28/09/2026</td><td class="r num">44 j</td><td class="r num">4 450,00</td><td>2 · Ferme</td><td class="send text-muted">Brouillon</td></tr>
+              <tr><td><input type="checkbox" checked class="chk" data-amount="7920"></td><td class="font-mono text-xs"><a href="facture.html" class="hover:underline">FAC-2026-0371</a></td><td><a href="client.html" class="hover:underline">Brasserie Lefèvre</a></td><td>15/10/2026</td><td class="r num">27 j</td><td class="r num">7 920,00</td><td>1 · Courtoise</td><td class="send text-muted">Brouillon</td></tr>
+              <tr><td><input type="checkbox" checked class="chk" data-amount="3360"></td><td class="font-mono text-xs"><a href="facture.html" class="hover:underline">FAC-2026-0374</a></td><td>Restaurant Kintaro</td><td>20/10/2026</td><td class="r num">22 j</td><td class="r num">3 360,00</td><td>1 · Courtoise</td><td class="send text-muted">Brouillon</td></tr>
+              <tr><td><input type="checkbox" checked class="chk" data-amount="5280"></td><td class="font-mono text-xs"><a href="facture.html" class="hover:underline">FAC-2026-0379</a></td><td>Le Comptoir Saint-Paul</td><td>24/10/2026</td><td class="r num">18 j</td><td class="r num">5 280,00</td><td>1 · Courtoise</td><td class="send text-muted">Brouillon</td></tr>
+              <tr><td><input type="checkbox" checked class="chk" data-amount="2150"></td><td class="font-mono text-xs"><a href="facture.html" class="hover:underline">FAC-2026-0383</a></td><td>Cave Marceau</td><td>30/10/2026</td><td class="r num">12 j</td><td class="r num">2 150,00</td><td>1 · Courtoise</td><td class="send text-muted">Brouillon</td></tr>
+              <tr><td><input type="checkbox" checked class="chk" data-amount="2740"></td><td class="font-mono text-xs"><a href="facture.html" class="hover:underline">FAC-2026-0386</a></td><td>Maison Dubreuil</td><td>03/11/2026</td><td class="r num">8 j</td><td class="r num">2 740,00</td><td>1 · Courtoise</td><td class="send text-muted">Brouillon</td></tr>
+            </tbody>
+            <tfoot><tr class="font-medium"><td></td><td colspan="4" class="px-3 py-2.5 border-t border-line">Sélection : <span id="sel-count" class="num">9</span> factures</td><td class="r num px-3 py-2.5 border-t border-line" id="sel-total">48 360,00</td><td colspan="2" class="border-t border-line"></td></tr></tfoot>
+          </table>
+        </div>
+      </section>
+
+      <!-- Options -->
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Solutions comparées</h2><span class="text-xs text-muted">Estimations fondées sur 14 campagnes de relance depuis janvier 2025</span></div>
+        <div class="overflow-x-auto">
+          <table class="tbl min-w-[720px]">
+            <thead><tr><th></th><th>A · Relance graduée <span class="text-accent">(recommandée)</span></th><th>B · Relance + escompte 2 %</th><th>C · Affacturage des 2 plus anciennes</th></tr></thead>
+            <tbody>
+              <tr><td class="text-muted">Encaissement estimé à 30 j</td><td class="num font-medium">31 400 €</td><td class="num">35 100 €</td><td class="num">12 000 € (net)</td></tr>
+              <tr><td class="text-muted">Coût</td><td class="num">≈ 0 €</td><td class="num">≈ 700 € d'escompte</td><td class="num">≈ 590 € de commission</td></tr>
+              <tr><td class="text-muted">Trésorerie J+30 projetée</td><td class="num">173 300 €</td><td class="num">176 300 €</td><td class="num">153 900 €</td></tr>
+              <tr><td class="text-muted">Difficulté</td><td>Faible</td><td>Faible</td><td>Moyenne (dossier, délai 5 j)</td></tr>
+              <tr><td class="text-muted">Risque relationnel</td><td>Faible</td><td>Faible</td><td>Moyen</td></tr>
+              <tr><td class="text-muted">Confiance</td><td>Élevée · taux historique 65 %</td><td>Moyenne · 2 essais seulement</td><td>Élevée · montant contractuel</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="px-4 py-3 text-xs text-muted border-t border-line">Calcul : encaissement = Σ montant × taux de recouvrement historique par tranche d'ancienneté (1–30 j : 80 %, 31–60 j : 65 %, 61–90 j : 50 %, &gt; 90 j : 19 %) = 31 383 €, arrondi à 31 400 €. Les chiffres sont calculés côté serveur, pas par le modèle de langage.</p>
+      </section>
+
+      <!-- Relances préparées -->
+      <section class="panel" data-tabs-scope>
+        <div class="panel-head">
+          <div><h2 class="panel-title">Actions préparées</h2><p class="text-xs text-muted mt-0.5">9 e-mails rédigés par l'assistant à partir des modèles validés. Rien n'est envoyé sans approbation.</p></div>
+        </div>
+        <div class="px-4 pt-2"><div class="tabs">
+          <button class="tab active" data-tab="m1">Courtoise · 5</button><button class="tab" data-tab="m2">Ferme · 2</button><button class="tab" data-tab="m3">Formelle · 2</button>
+        </div></div>
+        <div class="p-4">
+          <div data-panel="m1" class="border border-line rounded-md">
+            <div class="px-3 py-2 border-b border-line text-xs text-muted space-y-0.5">
+              <div><span class="inline-block w-14">À</span><span class="text-ink">comptabilite@brasserie-lefevre.fr</span></div>
+              <div><span class="inline-block w-14">Objet</span><span class="text-ink">Facture FAC-2026-0371 — rappel d'échéance</span></div>
+            </div>
+            <div class="p-3 text-sm leading-6 whitespace-pre-line">Bonjour Madame Lefèvre,
+
+Sauf erreur de notre part, la facture FAC-2026-0371 du 15 septembre 2026, d'un montant de 7 920,00 € TTC, arrivée à échéance le 15 octobre, reste à régler.
+
+Si le paiement a déjà été effectué, merci de ne pas tenir compte de ce message. Vous trouverez la facture en pièce jointe ainsi que nos coordonnées bancaires.
+
+Bien cordialement,
+Nadia Roux — Atelier Moreau</div>
+            <div class="px-3 py-2 border-t border-line flex items-center justify-between text-xs text-muted">
+              <span><i data-lucide="paperclip" class="w-3.5 h-3.5 inline -mt-0.5"></i> FAC-2026-0371.pdf</span>
+              <button class="btn btn-sm" data-toast="Édition du brouillon (démo)">Modifier</button>
+            </div>
+          </div>
+          <div data-panel="m2" hidden class="border border-line rounded-md p-3 text-sm leading-6 whitespace-pre-line"><span class="text-xs text-muted">À : compta@hotel-lestilleuls.fr · Objet : Second rappel — FAC-2026-0351</span>
+Madame, Monsieur,
+
+Malgré notre précédent rappel du 2 octobre, la facture FAC-2026-0351 (9 870,00 € TTC, échue le 19 septembre) demeure impayée. Nous vous remercions de procéder au règlement sous 8 jours ou de nous indiquer la date de paiement prévue.
+
+Cordialement,
+Nadia Roux — Atelier Moreau</div>
+          <div data-panel="m3" hidden class="border border-line rounded-md p-3 text-sm leading-6 whitespace-pre-line"><span class="text-xs text-muted">À : contact@bistro-nadal.fr · Objet : Mise en demeure — FAC-2026-0298</span>
+Monsieur Nadal,
+
+La facture FAC-2026-0298 de 4 450,00 € TTC, échue depuis le 2 août 2026, n'a pas été réglée malgré nos relances des 18 août et 15 septembre. Nous vous mettons en demeure de régler cette somme sous 15 jours. À défaut, nous engagerons une procédure de recouvrement.
+
+Claire Moreau — Gérante, Atelier Moreau
+<span class="text-xs text-warn">Communication externe sensible : approbation de la propriétaire requise en plus du responsable financier.</span></div>
+        </div>
+      </section>
+
+      <!-- Résultats -->
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Mesure des résultats</h2><span class="text-xs text-muted" id="measure-note">Démarre à l'exécution</span></div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-px bg-line">
+          <div class="bg-surface p-4"><div class="text-2xs text-subtle">Relances envoyées</div><div class="num font-medium mt-1" id="m-sent">—</div></div>
+          <div class="bg-surface p-4"><div class="text-2xs text-subtle">Réponses</div><div class="num font-medium mt-1" id="m-replies">—</div></div>
+          <div class="bg-surface p-4"><div class="text-2xs text-subtle">Paiements reçus</div><div class="num font-medium mt-1" id="m-paid">—</div></div>
+          <div class="bg-surface p-4"><div class="text-2xs text-subtle">Montant récupéré</div><div class="num font-medium mt-1" id="m-amount">—</div></div>
+          <div class="bg-surface p-4"><div class="text-2xs text-subtle">Délai moyen</div><div class="num font-medium mt-1" id="m-delay">—</div></div>
+        </div>
+        <p class="px-4 py-3 text-xs text-muted border-t border-line">Les paiements sont rapprochés automatiquement avec les factures relancées. Évaluation finale à J+30 : la recommandation passe alors au statut Évaluée.</p>
+      </section>
+    </div>
+
+    <!-- Colonne latérale -->
+    <aside class="space-y-6">
+      <section class="panel" id="approval">
+        <div class="panel-head"><h2 class="panel-title">Approbation</h2></div>
+        <div class="p-4 text-sm space-y-3" id="approval-body">
+          <p class="text-muted">Requiert l'approbation du <span class="text-ink">responsable financier</span>. Les relances de niveau 3 requièrent en plus la <span class="text-ink">propriétaire</span>.</p>
+          <label class="label" for="assignee">Exécution confiée à</label>
+          <select class="input" id="assignee"><option>Nadia Roux — Comptabilité</option><option>Julien Arnaud — Resp. commercial</option><option>Claire Moreau — Propriétaire</option></select>
+          <div class="flex gap-2 pt-1">
+            <button class="btn btn-primary flex-1 justify-center" id="btn-approve"><i data-lucide="check"></i>Approuver</button>
+            <button class="btn flex-1 justify-center" id="btn-reject"><i data-lucide="x"></i>Rejeter</button>
+          </div>
+          <div id="reject-box" hidden class="space-y-2">
+            <label class="label" for="reject-reason">Motif du rejet</label>
+            <textarea class="input" rows="3" id="reject-reason" placeholder="Ex. : échéancier déjà négocié avec Café des Arts"></textarea>
+            <button class="btn btn-danger w-full justify-center" id="btn-confirm-reject">Confirmer le rejet</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Fiche</h2></div>
+        <dl class="p-4 text-sm grid grid-cols-[120px_1fr] gap-y-2.5">
+          <dt class="text-muted">Priorité</dt><dd><span class="status s-danger">Haute</span></dd>
+          <dt class="text-muted">Impact estimé</dt><dd class="num">+31 400 € à 30 j</dd>
+          <dt class="text-muted">Coût estimé</dt><dd>≈ 0 €</dd>
+          <dt class="text-muted">Difficulté</dt><dd>Faible · 1 h</dd>
+          <dt class="text-muted">Confiance</dt><dd>Élevée (14 campagnes)</dd>
+          <dt class="text-muted">Responsable</dt><dd>Resp. financier</dd>
+          <dt class="text-muted">Date cible</dt><dd>13 nov. 2026</dd>
+          <dt class="text-muted">Expiration</dt><dd>25 nov. 2026</dd>
+          <dt class="text-muted">Clé de dédup.</dt><dd class="font-mono text-xs break-all">overdue_receivables:org_am:2026-W46</dd>
+        </dl>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Historique</h2></div>
+        <ol class="p-4 text-sm space-y-3" id="history">
+          <li><div class="text-2xs text-subtle">11 nov. 07:01 · Système</div><div>Recommandation proposée, 9 brouillons générés</div></li>
+          <li><div class="text-2xs text-subtle">11 nov. 07:00 · Système</div><div>Analyse : impact trésorerie calculé, solutions A/B/C évaluées</div></li>
+          <li><div class="text-2xs text-subtle">11 nov. 07:00 · Système</div><div>Détection : 9 factures échues, alerte ALR-311 liée</div></li>
+        </ol>
+      </section>
+    </aside>
+  </div>
+
+</main></div></div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  const fmt = n => n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const checks = [...document.querySelectorAll('.chk')];
+  const all = document.getElementById('chk-all');
+  function recompute() {
+    const sel = checks.filter(c => c.checked);
+    // Montants en centimes entiers pour éviter les erreurs d'arrondi
+    const cents = sel.reduce((s, c) => s + Math.round(Number(c.dataset.amount) * 100), 0);
+    document.getElementById('sel-count').textContent = sel.length;
+    document.getElementById('sel-total').textContent = fmt(cents / 100);
+    all.checked = sel.length === checks.length;
+  }
+  checks.forEach(c => c.addEventListener('change', recompute));
+  all.addEventListener('change', () => { checks.forEach(c => c.checked = all.checked); recompute(); });
+
+  const steps = [...document.querySelectorAll('#stepper .step')];
+  const label = document.getElementById('status-label');
+  const history = document.getElementById('history');
+  const now = () => new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  function setStep(i, text, cls) {
+    steps.forEach((s, k) => { s.classList.toggle('done', k < i); s.classList.toggle('current', k === i); });
+    steps[i].querySelector('.font-mono').textContent = steps[i].querySelector('.font-mono').textContent.split(' ·')[0] + ' · ' + now();
+    label.textContent = text; label.className = 'status ' + cls;
+  }
+  function log(who, what) {
+    const li = document.createElement('li');
+    li.innerHTML = `<div class="text-2xs text-subtle">11 nov. ${now()} · ${who}</div><div>${what}</div>`;
+    history.prepend(li);
+  }
+  const body = document.getElementById('approval-body');
+
+  document.getElementById('btn-approve').addEventListener('click', () => {
+    const n = checks.filter(c => c.checked).length;
+    if (!n) { bosToast('Sélectionnez au moins une facture'); return; }
+    checks.forEach(c => c.disabled = true); all.disabled = true;
+    setStep(3, 'Approuvée', 's-accent');
+    log('Claire Moreau', `Approuvée pour ${n} relance(s), exécution confiée à ${document.getElementById('assignee').value.split(' —')[0]}`);
+    body.innerHTML = `<p>Approuvée par <strong>Claire Moreau</strong>. Clé d'idempotence <span class="font-mono text-xs">exec_rec0142_01</span> : une seconde exécution sera ignorée.</p>
+      <button class="btn btn-primary w-full justify-center" id="btn-exec"><i data-lucide="send"></i>Exécuter ${n} relance(s)</button>`;
+    lucide.createIcons();
+    document.getElementById('btn-exec').addEventListener('click', e => {
+      e.currentTarget.disabled = true;
+      setStep(4, 'En cours', 's-accent');
+      checks.forEach(c => { const cell = c.closest('tr').querySelector('.send'); if (c.checked) { cell.textContent = 'Envoyée'; cell.className = 'send text-ok'; } else { cell.textContent = 'Exclue'; } });
+      log('Système', `${n} e-mail(s) envoyé(s) via la file d'envoi, journalisés dans l'audit`);
+      document.getElementById('m-sent').textContent = n;
+      document.getElementById('m-replies').textContent = '0';
+      document.getElementById('m-paid').textContent = '0';
+      document.getElementById('m-amount').textContent = '0 €';
+      document.getElementById('measure-note').textContent = 'Suivi actif jusqu\'au 11 déc.';
+      body.innerHTML = '<p class="text-muted">Relances envoyées. Le statut passera à Terminée lorsque toutes les factures seront réglées ou à l\'échéance du suivi.</p>';
+      bosToast(`${n} relance(s) envoyée(s) — simulation de démonstration, aucun e-mail réel`);
+    });
+  });
+  document.getElementById('btn-reject').addEventListener('click', () => { document.getElementById('reject-box').hidden = false; document.getElementById('reject-reason').focus(); });
+  document.getElementById('btn-confirm-reject').addEventListener('click', () => {
+    const reason = document.getElementById('reject-reason').value.trim();
+    if (!reason) { bosToast('Le motif du rejet est obligatoire'); return; }
+    steps.forEach(s => s.classList.remove('current'));
+    label.textContent = 'Rejetée'; label.className = 'status s-danger';
+    log('Claire Moreau', 'Rejetée : ' + reason.replace(/[<>]/g, ''));
+    body.innerHTML = '<p class="text-muted">Recommandation rejetée. Le motif est conservé pour ajuster les prochaines propositions.</p>';
+  });
+})();
+</script>
+</body>
+</html>

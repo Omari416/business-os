@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Connexion — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="min-h-screen grid place-items-center px-4">
+  <main class="w-full max-w-sm">
+    <div class="flex items-center gap-2 mb-8">
+      <span class="w-6 h-6 rounded bg-ink text-white text-[11px] font-semibold grid place-items-center">B</span>
+      <span class="font-semibold">Business OS</span>
+    </div>
+    <h1 class="text-lg font-semibold tracking-tight">Connexion</h1>
+    <p class="text-sm text-muted mt-1 mb-6">Accédez à l'espace de votre entreprise.</p>
+    <form class="space-y-4" onsubmit="event.preventDefault(); location.href='index.html'">
+      <div><label class="label" for="email">Adresse e-mail</label><input class="input h-9" id="email" type="email" value="claire@atelier-moreau.fr" autocomplete="email" required></div>
+      <div>
+        <div class="flex justify-between"><label class="label" for="pw">Mot de passe</label><a href="#" class="text-xs text-accent hover:underline" onclick="event.preventDefault(); bosToast?.('Lien de réinitialisation envoyé (démo)')">Oublié ?</a></div>
+        <input class="input h-9" id="pw" type="password" value="demonstration" autocomplete="current-password" required>
+      </div>
+      <button class="btn btn-primary w-full justify-center h-9" type="submit">Se connecter</button>
+    </form>
+    <p class="text-xs text-subtle mt-8 leading-5">Prototype de démonstration : aucune authentification réelle. Le bouton ouvre l'espace de l'organisation fictive Atelier Moreau.</p>
+  </main>
+<script src="assets/app.js"></script>
+</body>
+</html>
